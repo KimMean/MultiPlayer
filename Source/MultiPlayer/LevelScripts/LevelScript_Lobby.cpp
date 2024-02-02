@@ -4,7 +4,7 @@
 
 ALevelScript_Lobby::ALevelScript_Lobby()
 {
-	ConstructorHelpers::FClassFinder<ULobbyMain> widget(TEXT("WidgetBlueprint'/Game/UI/WB_Lobby.WB_Lobby_C'"));
+	ConstructorHelpers::FClassFinder<ULobbyMain> widget(TEXT("WidgetBlueprint'/Game/UI/Lobby/WB_Lobby.WB_Lobby_C'"));
 	MainWidgetClass = widget.Class;
 }
 

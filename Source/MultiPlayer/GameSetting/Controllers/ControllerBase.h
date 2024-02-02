@@ -10,5 +10,11 @@ class MULTIPLAYER_API AControllerBase : public APlayerController
 	GENERATED_BODY()
 	
 public :
-	AControllerBase(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+	AControllerBase();
+
+protected:
+	virtual void BeginPlay() override;
+
+public :
+	virtual void JoinServer();
 };
