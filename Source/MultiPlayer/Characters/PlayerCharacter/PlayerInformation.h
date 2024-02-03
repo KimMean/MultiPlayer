@@ -33,10 +33,6 @@ public:
 	UPROPERTY(EditAnywhere)
 		int32 Strength;
 
-	/* ¹ÎÃ¸¼º */
-	UPROPERTY(EditAnywhere)
-		int32 Agility;
-
 	/* Áö´É */
 	UPROPERTY(EditAnywhere)
 		int32 Intelligence;
