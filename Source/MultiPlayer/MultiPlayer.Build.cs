@@ -9,9 +9,14 @@ public class MultiPlayer : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay" });
+        PublicDependencyModuleNames.AddRange(new string[] 
+		{
+			"AIModule",
+		});
 
+        PublicIncludePaths.Add(ModuleDirectory);
 
-		PrivateIncludePaths.AddRange(new string[]
+        PrivateIncludePaths.AddRange(new string[]
 		{
 			"MultiPlayer"
 		});
