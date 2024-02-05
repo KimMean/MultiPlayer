@@ -8,24 +8,17 @@ public class MultiPlayer : ModuleRules
     {
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-<<<<<<< Updated upstream
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay" });
-=======
         PublicDependencyModuleNames.AddRange(new string[]
         {
-            "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay",
-            "EnhancedInput","AIModule",
+            "Core",
+	    "CoreUObject",
+	    "Engine",
+       	    "InputCore",
+	    "HeadMountedDisplay",
+            "EnhancedInput",
+	    "AIModule",
         });
->>>>>>> Stashed changes
-
-
-<<<<<<< Updated upstream
-		PrivateIncludePaths.AddRange(new string[]
-		{
-			"MultiPlayer"
-		});
-	}
-=======
+	
         PrivateIncludePaths.AddRange(new string[]
         {
             "MultiPlayer"
