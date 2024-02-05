@@ -1,12 +1,9 @@
 #include "GameSetting/GameMode/MainGameMode.h"
 
-#include "Characters/PlayerCharacter/Manny.h"
-
 #include "Utilities/DebugLog.h"
 
 AMainGameMode::AMainGameMode()
 {
-	DefaultPawnClass = AManny::StaticClass();
 }
 
 void AMainGameMode::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)

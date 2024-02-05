@@ -4,6 +4,9 @@
 #include "Characters/CharacterBase.h"
 #include "EnemyBase.generated.h"
 
+class AAIControllerBase;
+class UBehaviorTree;
+
 UCLASS()
 class MULTIPLAYER_API AEnemyBase : public ACharacterBase
 {
@@ -15,7 +18,21 @@ public :
 protected :
 	virtual void BeginPlay() override;
 
-private :
+
+public:
+	FORCEINLINE UBehaviorTree* GetBehaviorTree() { return BehaviorTree; }
+	//FORCEINLINE uint8 GetTeamID() { return TeamID; }
+
+protected:
+	/* AI Controller */
+	UPROPERTY(VisibleDefaultsOnly, Category = "EnemyBase|AI|Controller")
+		TSubclassOf<AAIControllerBase> AIController;
+
+	/* Behavior Tree */
+	UPROPERTY(EditDefaultsOnly, Category = "EnemyBase|AI|Behavior")
+		TObjectPtr<UBehaviorTree> BehaviorTree;
+
+protected :
 	/* 몬스터의 레벨 */
 	UPROPERTY(VisibleDefaultsOnly)
 		uint8 Level;
