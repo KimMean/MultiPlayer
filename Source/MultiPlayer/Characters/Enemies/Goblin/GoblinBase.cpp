@@ -1,6 +1,7 @@
 #include "Characters/Enemies/Goblin/GoblinBase.h"
 
 #include "Components/CapsuleComponent.h"
+#include "Components/BoxComponent.h"
 
 AGoblinBase::AGoblinBase()
 {
@@ -12,8 +13,6 @@ AGoblinBase::AGoblinBase()
 
 	GetMesh()->SetRelativeLocation(FVector(0, 0, -60));
 	GetMesh()->SetRelativeRotation(FRotator(0, -90, 0));
-
-
 }
 
 void AGoblinBase::BeginPlay()

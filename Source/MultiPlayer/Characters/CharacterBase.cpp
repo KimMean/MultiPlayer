@@ -18,3 +18,13 @@ void ACharacterBase::Tick(float DeltaSeconds)
 
 
 }
+
+void ACharacterBase::SetGenericTeamId(const FGenericTeamId& TeamID)
+{
+	GenericTeamID = TeamID;
+}
+
+FGenericTeamId ACharacterBase::GetGenericTeamId() const
+{
+	return GenericTeamID;
+}

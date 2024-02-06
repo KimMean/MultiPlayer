@@ -11,7 +11,6 @@
 
 AAIControllerBase::AAIControllerBase()
 {
-	Blackboard = CreateDefaultSubobject<UBlackboardComponent>(TEXT("Blackboard"));
 	PerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("Perception"));
 	Sight = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("Sight"));
 
@@ -19,13 +18,21 @@ AAIControllerBase::AAIControllerBase()
 	Sight->LoseSightRadius = 800;	// 벗어난 범위
 	Sight->PeripheralVisionAngleDegrees = 90;	//시야각
 
+	// TeamID에 의해 결정
+	Sight->DetectionByAffiliation.bDetectEnemies = true;	// 적
+	Sight->DetectionByAffiliation.bDetectNeutrals = false;	// 중립
+	Sight->DetectionByAffiliation.bDetectFriendlies = true;	// 아군
+
 	PerceptionComponent->ConfigureSense(*Sight);	// 감지
-	PerceptionComponent->SetDominantSense(*Sight->GetSenseImplementation());	// 감지 우선순위?
+	// AI 지각 컴포넌트에 시각 감각을 주요 감각으로 설정 
+	PerceptionComponent->SetDominantSense(*Sight->GetSenseImplementation());
 }
 
 void AAIControllerBase::BeginPlay()
 {
 	Super::BeginPlay();
+	DebugLog::Print("BeginPlay");
+	DebugLog::Print(Blackboard);
 }
 
 void AAIControllerBase::Tick(float DeltaTime)
@@ -63,6 +70,8 @@ void AAIControllerBase::OnUnPossess()
 void AAIControllerBase::OnPerceptionUpdated(const TArray<AActor*>& UpdateActors)
 {
 	DebugLog::Print("OnPerceptionUpdated");
+	// 감지된 Player들 중 Target Player를 선정해야함
+	// 4명이 감지되었을 때 공격 우선순위를 어떻게 해야할지 정하는 것이 필요
 }
 
 void AAIControllerBase::SetSenseConfigSight_SightRadius(float InRadius)

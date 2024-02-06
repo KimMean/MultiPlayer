@@ -31,7 +31,11 @@ protected:
 	//~ End AController Interface
 
 private:
-	/* PerceptionComponent -> OnPerceptionUpdated Delegate */
+	/* 
+	* PerceptionComponent -> OnPerceptionUpdated Delegate
+	* AI Sense에 감지되거나 감지 되지 않을 때 발생
+	* 감지된 오브젝트를 추가
+	*/
 	UFUNCTION()
 		void OnPerceptionUpdated(const TArray<AActor*>& UpdateActors);
 
