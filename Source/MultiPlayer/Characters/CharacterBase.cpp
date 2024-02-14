@@ -123,3 +123,13 @@ void ACharacterBase::ResetHitState()
 	CharacterState = ECharacterState::Idle;
 	HitDirection = EDirectionState::None;
 }
+
+void ACharacterBase::SetGenericTeamId(const FGenericTeamId& TeamID)
+{
+	GenericTeamID = TeamID;
+}
+
+FGenericTeamId ACharacterBase::GetGenericTeamId() const
+{
+	return GenericTeamID;
+}
