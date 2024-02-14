@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "GenericTeamAgentInterface.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "CharacterInformation.h"
 #include "Enums/AttackType.h"
@@ -12,7 +13,7 @@
 class ABoxWeapon;
 
 UCLASS()
-class MULTIPLAYER_API ACharacterBase : public ACharacter
+class MULTIPLAYER_API ACharacterBase : public ACharacter, public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
 
@@ -31,6 +32,10 @@ protected:
 
 	//UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	//TSoftObjectPtr<AWeaponBase> Weapon;
+  
+	/* Generic Team Agent Interface */
+	UPROPERTY(VisibleDefaultsOnly, Category = "AI")
+		FGenericTeamId GenericTeamID;
 
 public:
 	ACharacterBase();
@@ -61,8 +66,18 @@ public:
 	void SetInvincibility(const bool Value) { bInvincibility = Value; }
 	const bool& IsInvincibility() const { return bInvincibility; }
 
+public :
+	// ~Begin IGeneric Team Agent Interface
+	/** ÁöÁ¤µÈ TeamID¿¡ ÆÀ ¿¡ÀÌÀüÆ®¸¦ ÇÒ´çÇÕ´Ï´Ù. */
+	virtual void SetGenericTeamId(const FGenericTeamId& TeamID) override;
+
+	/** FGenericTeamId Çü½ÄÀ¸·Î ÆÀ ½Äº°ÀÚ¸¦ °Ë»öÇÕ´Ï´Ù. */
+	virtual FGenericTeamId GetGenericTeamId() const override;
+	// ~End IGeneric Team Agent Interface
+  
+    
 private:
-	/* ���� */
+	/* ¹«Àû */
 	bool bInvincibility = false;
 	bool bSaveHit = false;
 };
