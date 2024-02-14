@@ -4,32 +4,26 @@ using UnrealBuildTool;
 
 public class MultiPlayer : ModuleRules
 {
-    public MultiPlayer(ReadOnlyTargetRules Target) : base(Target)
-    {
-        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+	public MultiPlayer(ReadOnlyTargetRules Target) : base(Target)
+	{
+		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-<<<<<<< Updated upstream
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay" });
-=======
-        PublicDependencyModuleNames.AddRange(new string[]
+		PublicDependencyModuleNames.AddRange(new string[]
         {
-            "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay",
-            "EnhancedInput","AIModule",
+            "Core",
+	    	"CoreUObject",
+	    	"Engine",
+       	    "InputCore",
+	    	"HeadMountedDisplay",
+            "EnhancedInput",
+	    	"AIModule",
+            "AnimGraphRuntime",
         });
->>>>>>> Stashed changes
+        PublicIncludePaths.Add(ModuleDirectory);
 
-
-<<<<<<< Updated upstream
-		PrivateIncludePaths.AddRange(new string[]
+        PrivateIncludePaths.AddRange(new string[]
 		{
 			"MultiPlayer"
 		});
 	}
-=======
-        PrivateIncludePaths.AddRange(new string[]
-        {
-            "MultiPlayer"
-        });
-    }
->>>>>>> Stashed changes
 }

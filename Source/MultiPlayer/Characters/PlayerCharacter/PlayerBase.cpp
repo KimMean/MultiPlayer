@@ -7,6 +7,8 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/GameplayStatics.h"
 
+#include "Actors/Weapons/WeaponBase.h"
+
 #include "Utilities/DebugLog.h"
 
 APlayerBase::APlayerBase()
@@ -47,12 +49,24 @@ void APlayerBase::BeginPlay()
 {
 	Super::BeginPlay();
 
+	if (Weapon != nullptr)
+	{
+		Weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, "pelvis");
+		
+		Weapon->SetOwner(this);
+	}
 }
 
 void APlayerBase::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
+	UDirectionState::PrintString(MoveDirection, 0.01f, FColor::Purple);
+	UCharacterState::PrintString(CharacterState, 0.01f, FColor::Cyan);
+
+	FString str;
+	str = "MaxWalkSpeed : " + FString::SanitizeFloat(GetCharacterMovement()->MaxWalkSpeed);
+	DebugLog::Print(str, -1, 0.01f, FColor::Green);
 }
 
 void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -62,9 +76,17 @@ void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 	input->BindAction(InputActions.FindRef("ForwardMove"), ETriggerEvent::Triggered, this, &APlayerBase::OnForwardMove);
 	input->BindAction(InputActions.FindRef("RightMove"), ETriggerEvent::Triggered, this, &APlayerBase::OnRightMove);
-	
+
+	input->BindAction(InputActions.FindRef("ForwardMove"), ETriggerEvent::Completed, this, &APlayerBase::EndForwardMove);
+	input->BindAction(InputActions.FindRef("RightMove"), ETriggerEvent::Completed, this, &APlayerBase::EndRightMove);
+
 	input->BindAction(InputActions.FindRef("VerticalLook"), ETriggerEvent::Triggered, this, &APlayerBase::VerticalLook);
 	input->BindAction(InputActions.FindRef("HorizontalLook"), ETriggerEvent::Triggered, this, &APlayerBase::HorizontalLook);
+
+	input->BindAction(InputActions.FindRef("LeftClick"), ETriggerEvent::Started, this, &APlayerBase::OnLeftClick);
+	input->BindAction(InputActions.FindRef("RightClick"), ETriggerEvent::Started, this, &APlayerBase::OnRightClick);
+
+	input->BindAction(InputActions.FindRef("Evation"), ETriggerEvent::Started, this, &APlayerBase::OnEvation);
 }
 
 //void APlayerBase::OnMoveForward(float InAxis)
@@ -81,27 +103,80 @@ void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 void APlayerBase::OnForwardMove(const FInputActionInstance& Instance)
 {
-	FVector value = Instance.GetValue().Get<FVector>();
+	if (bMoveable == false) return;
 
+	FVector value = Instance.GetValue().Get<FVector>();
 	FVector forward = GetActorForwardVector();
-	float speed = 200.0f;
+
+	if (value.X > 0.0f)
+		MoveDirection = EDirectionState::Front;
+	else if (value.X < 0.0f)
+		MoveDirection = EDirectionState::Back;
 	
-	AddMovementInput(forward * speed * value.X);
+	AddMovementInput(forward * value.X);
+
+	CharacterState = ECharacterState::Move;
 }
 
 void APlayerBase::OnRightMove(const FInputActionInstance& Instance)
 {
-	FVector value = Instance.GetValue().Get<FVector>();
-	
+	if (bMoveable == false) return;
+
+	FVector value = Instance.GetValue().Get<FVector>();	
 	FVector right = GetActorRightVector();
-	float speed = 200.0f;
-	AddMovementInput(right * speed * value.X);
+
+	// Right
+	if (value.X > 0.0f)
+	{
+		if (MoveDirection == EDirectionState::Front)
+			MoveDirection = EDirectionState::FrontRight;
+		else if (MoveDirection == EDirectionState::Back)
+			MoveDirection = EDirectionState::BackRight;
+		else
+			MoveDirection = EDirectionState::Right;
+	}
+
+	// Left
+	else if (value.X < 0.0f)
+	{
+		if (MoveDirection == EDirectionState::Front)
+			MoveDirection = EDirectionState::FrontLeft;
+		else if (MoveDirection == EDirectionState::Back)
+			MoveDirection = EDirectionState::BackLeft;
+		else
+			MoveDirection = EDirectionState::Left;
+	}
+
+	AddMovementInput(right * value.X);
+
+	CharacterState = ECharacterState::Move;
+}
+
+void APlayerBase::EndForwardMove(const FInputActionInstance& Instance)
+{
+	MoveDirection = EDirectionState::None;
+	CharacterState = ECharacterState::Idle;
+}
+
+void APlayerBase::EndRightMove(const FInputActionInstance& Instance)
+{
+	if(MoveDirection == EDirectionState::Left ||
+		MoveDirection == EDirectionState::Right)
+	{
+		MoveDirection = EDirectionState::None;
+		CharacterState = ECharacterState::Idle;
+	}
 }
 
 void APlayerBase::VerticalLook(const FInputActionInstance& Instance)
 {
 	FVector value = Instance.GetValue().Get<FVector>();
 	float pitch = VerticalLookRate * value.X * UGameplayStatics::GetWorldDeltaSeconds(GetWorld());
+
+	FString debug = L"";
+	debug = L"Vertical value : " + FString::SanitizeFloat(pitch);
+
+	DebugLog::Print(debug, -1, 0.01f, FColor::Red);
 
 	AddControllerPitchInput(pitch);
 }
@@ -111,26 +186,116 @@ void APlayerBase::HorizontalLook(const FInputActionInstance& Instance)
 	FVector value = Instance.GetValue().Get<FVector>();
 	float yaw = HorizontalLookRate * value.X * UGameplayStatics::GetWorldDeltaSeconds(GetWorld());
 
+	FString debug = L"";
+	debug = L"Horizontal value : " + FString::SanitizeFloat(yaw);
+
+	DebugLog::Print(debug, -1, 0.01f, FColor::Red);
+
 	AddControllerYawInput(yaw);
 }
 
-void APlayerBase::OnMove(const FInputActionInstance& Instance)
+void APlayerBase::OnLeftClick(const FInputActionInstance& Instance)
 {
-	FVector testVector = Instance.GetValue().Get<FVector>();
-	bool testBool = Instance.GetValue().Get<bool>();
-
-	FString value = (testBool == true ? L"True" : L"False");
-	FString testLog = L"";
-	testLog = L"Bool Check : " + value;
-	testLog += L"\nVector Check : " + testVector.ToString();
-	DebugLog::Print(testLog, -1, 0.01f, FColor::Red);
-
-	FVector forward = GetActorForwardVector();
-	float speed = 200.0f;
-	AddMovementInput(forward * speed);
+	OnAttacking();
 }
 
-void APlayerBase::OnTest(const FInputActionInstance& Instance)
+void APlayerBase::OnRightClick(const FInputActionInstance& Instance)
 {
-	DebugLog::Print(L"Test");
+	OnSmashing();
+}
+
+void APlayerBase::OnEvation(const FInputActionInstance& Instance)
+{
+	if (bMoveable == false) return;
+	if (bEvation == true) return;
+	
+	bEvation = true;
+	bMoveable = false;
+	CharacterState = ECharacterState::Evation;
+
+	/**
+	* Evation ÄðÅ¸ÀÓ Ãß°¡
+	*/
+}
+
+void APlayerBase::OnAttacking()
+{
+	if (bCanAttack == false) return;
+
+	if (bAttacking == true)
+	{
+		bSaveAttack = true;
+		return;
+	}
+
+	if (AttackCombo == MAX_ATTACK_COMBO) return;
+
+	bAttacking = true;
+	AttackCombo++;
+
+	CharacterState = ECharacterState::Attack;
+}
+
+void APlayerBase::OnSmashing()
+{
+	if (bCanAttack == false) return;
+}
+
+void APlayerBase::ResetEvation()
+{
+	bEvation = false;
+	bMoveable = true;
+	CharacterState = ECharacterState::Idle;
+}
+
+const bool APlayerBase::SaveAttack()
+{
+	if (bSaveAttack == true)
+	{
+		bAttacking = false;
+		bSaveAttack = false;
+		OnAttacking();
+
+		return true;
+	}
+
+	return false;
+}
+
+void APlayerBase::ResetAttackState()
+{
+	bAttacking = false;
+	bSmashing = false;
+	bSaveAttack = false;
+	bSaveSmash = false;
+
+	AttackCombo = 0;
+
+	if (CharacterState != ECharacterState::Death)
+		CharacterState = ECharacterState::Idle;
+}
+
+void APlayerBase::ResetState()
+{
+	Super::ResetState();
+
+	MoveDirection = EDirectionState::None;
+	bEvation = false;
+	bMoveable = true;
+}
+
+void APlayerBase::ResetHitState()
+{
+	Super::ResetHitState();
+
+	bMoveable = true;
+}
+
+const bool APlayerBase::GetDamage(const int32 Damage, const EAttackType Type, const FVector OtherLocation, const FHitResult& SweepResult)
+{
+	bool result = Super::GetDamage(Damage, Type, OtherLocation, SweepResult);
+
+	bMoveable = false;
+
+	return result;
 }
