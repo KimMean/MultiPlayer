@@ -1,5 +1,3 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
 using UnrealBuildTool;
 
 public class MultiPlayer : ModuleRules
@@ -14,10 +12,10 @@ public class MultiPlayer : ModuleRules
 	    	"CoreUObject",
 	    	"Engine",
        	    "InputCore",
-            "AnimGraphRuntime",
-            "HeadMountedDisplay",
+	    	"HeadMountedDisplay",
             "EnhancedInput",
 	    	"AIModule",
+            "AnimGraphRuntime",
         });
         PublicIncludePaths.Add(ModuleDirectory);
 
