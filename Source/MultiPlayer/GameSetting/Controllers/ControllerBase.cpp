@@ -8,13 +8,14 @@
 
 AControllerBase::AControllerBase()
 {
-	//bShowMouseCursor = true;
 	PlayerCameraManagerClass = APlayerCameraManagerBase::StaticClass();
 }
 
 void AControllerBase::BeginPlay()
 {
 	//DebugLog::Print((int)GetRemoteRole());
+
+	bShowMouseCursor = false; 
 
 	if (ULocalPlayer* localPlayer = Cast<ULocalPlayer>(Player))
 	{
