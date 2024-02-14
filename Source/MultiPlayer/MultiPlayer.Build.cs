@@ -17,6 +17,7 @@ public class MultiPlayer : ModuleRules
 	    	"HeadMountedDisplay",
             "EnhancedInput",
 	    	"AIModule",
+            "AnimGraphRuntime",
         });
         PublicIncludePaths.Add(ModuleDirectory);
 
