@@ -15,7 +15,7 @@ enum class EEnemyStateType : uint8
 	Chase,
 	Retreat,
 	Defend,
-	Avoid,
+	Evade,
 	Hitted,
 	Death,
 };
@@ -45,7 +45,7 @@ public:
 	FORCEINLINE bool IsChaseMode() { return Type == EEnemyStateType::Chase; }
 	FORCEINLINE bool IsRetreatMode() { return Type == EEnemyStateType::Retreat; }
 	FORCEINLINE bool IsDefendMode() { return Type == EEnemyStateType::Defend; }
-	FORCEINLINE bool IsAvoidMode() { return Type == EEnemyStateType::Avoid; }
+	FORCEINLINE bool IsEvadeMode() { return Type == EEnemyStateType::Evade; }
 	FORCEINLINE bool IsHittedMode() { return Type == EEnemyStateType::Hitted; }
 	FORCEINLINE bool IsDeathMode() { return Type == EEnemyStateType::Death; }
 
@@ -57,7 +57,7 @@ public:
 	void SetChaseMode();
 	void SetRetreatMode();
 	void SetDefendMode();
-	void SetAvoidMode();
+	void SetEvadeMode();
 	void SetHittedMode();
 	void SetDeathMode();
 

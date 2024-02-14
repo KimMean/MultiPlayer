@@ -1,5 +1,7 @@
 #include "Characters/Enemies/EnemyAnimInstanceBase.h"
 
+#include "KismetAnimationLibrary.h"
+
 #include "Characters/Enemies/EnemyBase.h"
 
 void UEnemyAnimInstanceBase::NativeBeginPlay()
@@ -16,4 +18,5 @@ void UEnemyAnimInstanceBase::NativeUpdateAnimation(float DeltaSeconds)
 	if (OwnerEnemy == nullptr) return;
 
 	Speed = OwnerEnemy->GetVelocity().Size2D();
+	Direction = UKismetAnimationLibrary::CalculateDirection(OwnerEnemy->GetVelocity(), OwnerEnemy->GetActorRotation());
 }

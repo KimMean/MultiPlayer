@@ -18,7 +18,10 @@ public :
 	// ~End AnimInstance Interface
 
 protected :
-	UPROPERTY(BlueprintReadOnly, Category = "Animation|Enemy|Property")
+	UPROPERTY(BlueprintReadOnly, Category = "Enemy|Animation|Property")
+		float Direction;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Enemy|Animation|Property")
 		float Speed;
 
 private :

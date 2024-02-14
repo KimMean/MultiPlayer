@@ -7,6 +7,17 @@
 
 class AAIControllerBase;
 class UBehaviorTree;
+class UEnemyAnimationComponent;
+
+UENUM()
+enum class EEnemyType : uint8
+{
+	NONE,
+	Melee,
+	Ranger,
+	MAX,
+};
+
 
 UCLASS()
 class MULTIPLAYER_API AEnemyBase : public ACharacterBase
@@ -21,13 +32,23 @@ protected :
 
 
 public:
-	/* Behavior Tree */
-	FORCEINLINE UBehaviorTree* GetBehaviorTree() { return BehaviorTree; }
+	/* return Behavior Tree */
+	UBehaviorTree* GetBehaviorTree();
+	/* return Enemy State Component */
+	UEnemyStateComponent* GetEnemyStateComponent();
+	/* return Enemy Animation Component */
+	UEnemyAnimationComponent* GetEnemyAnimationComponent();
+
 
 public :
 	/* Enemy State Component, EnemyStateTypeChanged Delegate */
 	UFUNCTION()
 		virtual void OnEnemyStateChanged(EEnemyStateType InPrevType, EEnemyStateType InNewType);
+
+public :
+	EEnemyType GetEnemyType();
+
+
 
 protected:
 	/* AI Controller */
@@ -39,10 +60,19 @@ protected:
 		TObjectPtr<UBehaviorTree> BehaviorTree;
 
 protected :
+	/* Enemy StateComponent */
 	UPROPERTY(VisibleDefaultsOnly, Category = "Enemy|State")
 		TObjectPtr<UEnemyStateComponent> State;
 
+	/* Enemy StateComponent */
+	UPROPERTY(VisibleDefaultsOnly, Category = "Enemy|State")
+		TObjectPtr<UEnemyAnimationComponent> Animation;
+
 protected :
+	/* 몬스터의 전술 타입 */
+	UPROPERTY(VisibleDefaultsOnly, Category = "Enemy|Property")
+		EEnemyType EnemyType;
+
 	/* 몬스터의 레벨 */
 	UPROPERTY(VisibleDefaultsOnly, Category = "Enemy|Property")
 		uint8 Level;

@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
+#include "Components/Enemy/EnemyStateComponent.h"
 #include "AIControllerBase.generated.h"
 
 class UBehaviorTreeComponent;
@@ -22,8 +23,9 @@ protected :
 
 	virtual void Tick(float DeltaTime) override;
 
-	//~ Begin AController Interface
+
 protected:
+	//~ Begin AController Interface
 	/* Pawn 에 빙의 되었을 경우 */
 	virtual void OnPossess(APawn* InPawn) override;
 	/* 빙의가 해제 되었을 경우 */
@@ -40,12 +42,21 @@ private:
 		void OnPerceptionUpdated(const TArray<AActor*>& UpdateActors);
 
 public :
+	/* return Target in Blackboard */
+	const TObjectPtr<AActor> GetTargetActor();
+
 	/* Sight Radius를 설정합니다. */
+	float GetSenseConfigSight_SightRadius();
 	void SetSenseConfigSight_SightRadius(float InRadius);
 	/* Lose Sight Radius를 설정합니다. */
 	void SetSenseConfigSight_LoseSightRadius(float InRadius);
 	/* Action Range를 설정합니다. */
+	float GetActionRange();
 	void SetActionRange(float InActionRange);
+
+public :
+	UFUNCTION()
+		virtual void OnEnemyStateChanged(EEnemyStateType InPrevType, EEnemyStateType InNewType);
 
 
 protected:
@@ -53,6 +64,16 @@ protected:
 	TObjectPtr<AEnemyBase> OwnerEnemy;
 	/* AISenseConfig_Sight 감지 클래스 */
 	TObjectPtr<UAISenseConfig_Sight> Sight;
+
+	/*
+	* AIController Interface Blackboard
+	* TObjectPtr<UAIPerceptionComponent> PerceptionComponent;
+	*/
+
+	/*
+	* AIController Interface Blackboard
+	* TObjectPtr<UBlackboardComponent> Blackboard;
+	*/
 
 private:
 	/* AI 공격 범위 */

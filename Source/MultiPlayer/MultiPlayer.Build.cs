@@ -14,7 +14,8 @@ public class MultiPlayer : ModuleRules
 	    	"CoreUObject",
 	    	"Engine",
        	    "InputCore",
-	    	"HeadMountedDisplay",
+            "AnimGraphRuntime",
+            "HeadMountedDisplay",
             "EnhancedInput",
 	    	"AIModule",
         });

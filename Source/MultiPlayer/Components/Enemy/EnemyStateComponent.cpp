@@ -56,9 +56,9 @@ void UEnemyStateComponent::SetDefendMode()
 	ChangeType(EEnemyStateType::Defend);
 }
 
-void UEnemyStateComponent::SetAvoidMode()
+void UEnemyStateComponent::SetEvadeMode()
 {
-	ChangeType(EEnemyStateType::Avoid);
+	ChangeType(EEnemyStateType::Evade);
 }
 
 void UEnemyStateComponent::SetHittedMode()
