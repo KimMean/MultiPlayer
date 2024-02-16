@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
-#include "Components/Enemy/EnemyStateComponent.h"
+#include "Enums/CharacterState.h"
 #include "EnemyAnimationData.generated.h"
 
 class UAnimMontage;
@@ -23,10 +23,10 @@ class MULTIPLAYER_API UEnemyAnimationData : public UDataAsset
 	GENERATED_BODY()
 	
 public :
-	FEnemyAnimData GetAnimationData(const EEnemyStateType& InEnemyStateType);
-	TObjectPtr<UAnimMontage> GetAnimationMontageData(const EEnemyStateType& InEnemyStateType);
+	FEnemyAnimData GetAnimationData(const ECharacterState& InEnemyStateType);
+	TObjectPtr<UAnimMontage> GetAnimationMontageData(const ECharacterState& InEnemyStateType);
 
 protected :
 	UPROPERTY(EditAnywhere)
-		TMap<EEnemyStateType, FEnemyAnimData> AnimationDatas;
+		TMap<ECharacterState, FEnemyAnimData> AnimationDatas;
 };

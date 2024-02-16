@@ -12,8 +12,13 @@ enum class ECharacterState : uint8
 {
 	//None,
 	Idle,
+	Wait,
 	Move,
 	Attack,
+	Defend,
+	Patrol,
+	Chase,
+	Hold,
 	Smash,
 	Hit,
 	Evation,

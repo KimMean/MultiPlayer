@@ -36,11 +36,16 @@ void AWeaponBase::SetCollisionEnabled(const bool Value)
 		Collision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
+void AWeaponBase::SetDamage(int InDamage)
+{
+	Damage = InDamage;
+}
+
 void AWeaponBase::OnBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (OtherActor == nullptr) return;
 	if (OtherActor == this) return;
-	if (OtherActor->GetOwner() == GetOwner()) return;
+	if (OtherActor == GetOwner()) return;
 
 	DamageComponent->GiveDamage(GetOwner(), OtherActor, Damage, AttackType, SweepResult);
 }

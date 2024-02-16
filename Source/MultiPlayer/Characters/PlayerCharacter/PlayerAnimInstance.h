@@ -20,7 +20,7 @@ protected:
 	TWeakObjectPtr<APlayerBase> OwnerCharacter = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	TEnumAsByte<EDirectionState> MoveDirection;
+	EDirectionState MoveDirection;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool bEvation = false;

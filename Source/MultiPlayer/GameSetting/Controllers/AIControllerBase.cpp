@@ -21,7 +21,7 @@ AAIControllerBase::AAIControllerBase()
 	// TeamID에 의해 결정
 	Sight->DetectionByAffiliation.bDetectEnemies = true;	// 적
 	Sight->DetectionByAffiliation.bDetectNeutrals = false;	// 중립
-	Sight->DetectionByAffiliation.bDetectFriendlies = true;	// 아군
+	Sight->DetectionByAffiliation.bDetectFriendlies = false;	// 아군
 
 	PerceptionComponent->ConfigureSense(*Sight);	// 감지
 	// AI 지각 컴포넌트에 시각 감각을 주요 감각으로 설정 
@@ -57,10 +57,10 @@ void AAIControllerBase::OnPossess(APawn* InPawn)
 	OwnerEnemy = Cast<AEnemyBase>(InPawn);
 
 	// StateType Change Delegate
-	OwnerEnemy->GetEnemyStateComponent()->OnEnemyStateTypeChanged.AddDynamic(this, &AAIControllerBase::OnEnemyStateChanged);
+	OwnerEnemy->OnCharacterStateTypeChanged.AddDynamic(this, &AAIControllerBase::OnCharacterStateChanged);
 
 	PerceptionComponent->OnPerceptionUpdated.AddDynamic(this, &AAIControllerBase::OnPerceptionUpdated);
-	
+
 
 	RunBehaviorTree(OwnerEnemy->GetBehaviorTree());
 }
@@ -127,7 +127,7 @@ void AAIControllerBase::SetActionRange(float InActionRange)
 	ActionRange = InActionRange;
 }
 
-void AAIControllerBase::OnEnemyStateChanged(EEnemyStateType InPrevType, EEnemyStateType InNewType)
+void AAIControllerBase::OnCharacterStateChanged(ECharacterState InPrevType, ECharacterState InNewType)
 {
 	Blackboard->SetValueAsEnum(TEXT("State"), (uint8)InNewType);
 }

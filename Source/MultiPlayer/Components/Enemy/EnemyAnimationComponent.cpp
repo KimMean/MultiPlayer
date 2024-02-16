@@ -16,10 +16,10 @@ void UEnemyAnimationComponent::BeginPlay()
 
 void UEnemyAnimationComponent::PlayAnimation_Action()
 {
-	PlayAnimMontage(EEnemyStateType::Action);
+	PlayAnimMontage(ECharacterState::Attack);
 }
 
-void UEnemyAnimationComponent::PlayAnimMontage(EEnemyStateType InState)
+void UEnemyAnimationComponent::PlayAnimMontage(ECharacterState InState)
 {
 	if (!AnimDatas) return;
 

@@ -5,6 +5,7 @@
 
 ACharacterBase::ACharacterBase()
 {
+	SetGenericTeamId(1);
 	PrimaryActorTick.bCanEverTick = false;
 }
 
@@ -20,8 +21,8 @@ void ACharacterBase::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 
 	FString str = L"";
-	str = L"CharacterState : " + UCharacterState::ToString(CharacterState.GetValue());
-	str += L"\nHitDirection : " + UDirectionState::ToString(HitDirection.GetValue());
+	str = L"CharacterState : " + UCharacterState::ToString(CharacterState);
+	str += L"\nHitDirection : " + UDirectionState::ToString(HitDirection);
 	str += L"\nSaveHit : ";
 	str += bSaveHit == true ? L"Ture" : L"False";
 	DebugLog::Print(str, -1, 0.01f, FColor::Purple);
@@ -122,6 +123,17 @@ void ACharacterBase::ResetHitState()
 {
 	CharacterState = ECharacterState::Idle;
 	HitDirection = EDirectionState::None;
+}
+
+void ACharacterBase::SetCharacterState(ECharacterState InState)
+{
+	ECharacterState type = CharacterState;
+	CharacterState = InState;
+
+	if (OnCharacterStateTypeChanged.IsBound())
+	{
+		OnCharacterStateTypeChanged.Broadcast(type, CharacterState);
+	}
 }
 
 void ACharacterBase::SetGenericTeamId(const FGenericTeamId& TeamID)
