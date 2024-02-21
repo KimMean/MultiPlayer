@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
-#include "Components/Enemy/EnemyStateComponent.h"
+#include "Enums/CharacterState.h"
 #include "AIControllerBase.generated.h"
 
 class UBehaviorTreeComponent;
@@ -56,7 +56,7 @@ public :
 
 public :
 	UFUNCTION()
-		virtual void OnEnemyStateChanged(EEnemyStateType InPrevType, EEnemyStateType InNewType);
+		virtual void OnCharacterStateChanged(ECharacterState InPrevType, ECharacterState InNewType);
 
 
 protected:

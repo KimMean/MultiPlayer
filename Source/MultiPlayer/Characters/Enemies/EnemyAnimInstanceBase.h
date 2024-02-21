@@ -1,13 +1,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Animation/AnimInstance.h"
+#include "Characters/AnimInstanceBase.h"
 #include "EnemyAnimInstanceBase.generated.h"
 
 class AEnemyBase;
 
 UCLASS()
-class MULTIPLAYER_API UEnemyAnimInstanceBase : public UAnimInstance
+class MULTIPLAYER_API UEnemyAnimInstanceBase : public UAnimInstanceBase
 {
 	GENERATED_BODY()
 
@@ -17,13 +17,4 @@ public :
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 	// ~End AnimInstance Interface
 
-protected :
-	UPROPERTY(BlueprintReadOnly, Category = "Enemy|Animation|Property")
-		float Direction;
-
-	UPROPERTY(BlueprintReadOnly, Category = "Enemy|Animation|Property")
-		float Speed;
-
-private :
-	TObjectPtr<AEnemyBase> OwnerEnemy;
 };

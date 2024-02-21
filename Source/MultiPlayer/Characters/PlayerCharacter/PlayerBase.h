@@ -42,8 +42,8 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Component")
 	TObjectPtr<UCameraComponent> Camera = nullptr;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Input")
-	TObjectPtr<AWeaponBase> Weapon = nullptr;
+	//UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Input")
+	//TObjectPtr<AWeaponBase> Weapon = nullptr;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Input")
 	TMap<FString, TObjectPtr<UInputAction>> InputActions;
@@ -52,7 +52,7 @@ protected:
 	//TArray<TWeakPtr<UAnimMontage>> SkillAnims;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Input")
-	TEnumAsByte<EDirectionState> MoveDirection;
+	EDirectionState MoveDirection;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Input")
 	float VerticalLookRate = 10.0f;
@@ -93,7 +93,7 @@ public:
 	/**
 	* Get Move Direction
 	*/
-	const EDirectionState GetDirection() const { return MoveDirection.GetValue(); }
+	const EDirectionState GetDirection() const { return MoveDirection; }
 
 private:
 	void OnForwardMove(const FInputActionInstance& Instance);

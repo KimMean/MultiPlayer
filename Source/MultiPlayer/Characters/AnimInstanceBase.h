@@ -21,10 +21,10 @@ protected:
 	TWeakObjectPtr<ACharacterBase> Character = nullptr;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	TEnumAsByte<ECharacterState> CharacterState;
+	ECharacterState CharacterState;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	TEnumAsByte<EDirectionState> HitDirection;
+	EDirectionState HitDirection;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	float Speed = 0.0f;

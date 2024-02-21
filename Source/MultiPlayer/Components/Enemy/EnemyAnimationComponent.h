@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "Components/Enemy/EnemyStateComponent.h"
+#include "Enums/CharacterState.h"
 #include "EnemyAnimationComponent.generated.h"
 
 class UEnemyAnimationData;
@@ -22,9 +22,11 @@ public :
 	void PlayAnimation_Action();
 
 public:
-	void PlayAnimMontage(EEnemyStateType InState);
+	/* TMap<ECharacterState, TArray<AnimationMontage> */
+	void PlayAnimMontage(ECharacterState InState);
 
 private:
+	/* Animation Montage Data */
 	UPROPERTY(EditDefaultsOnly)
 		TObjectPtr<UEnemyAnimationData> AnimDatas;
 

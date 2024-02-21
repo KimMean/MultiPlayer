@@ -2,7 +2,6 @@
 
 #include "GameSetting/GameInstance/GameInstanceBase.h"
 #include "GameSetting/Controllers/AIControllerBase.h"
-#include "Components/Enemy/EnemyStateComponent.h"
 #include "Characters/Enemies/EnemyBase.h"
 
 #include "Utilities/UsefulMath.h"
@@ -17,7 +16,6 @@ bool UBTDecorator_AttackTactics::CalculateRawConditionValue(UBehaviorTreeCompone
 {
 	TObjectPtr<AAIControllerBase> controller = Cast<AAIControllerBase>(OwnerComp.GetOwner());
 	TObjectPtr<AEnemyBase> enemy = Cast<AEnemyBase>(controller->GetPawn());
-	TObjectPtr<UEnemyStateComponent> state = enemy->GetEnemyStateComponent();
 
 	TObjectPtr<AActor> target = controller->GetTargetActor();
 
@@ -28,7 +26,7 @@ bool UBTDecorator_AttackTactics::CalculateRawConditionValue(UBehaviorTreeCompone
 	// 적이 뒤를 보고 있는 경우 무조건 공격 모드로
 	if (dot > 0)
 	{
-		state->SetActionMode();
+		enemy->SetCharacterState(ECharacterState::Attack);
 		return true;
 	}
 
@@ -39,13 +37,13 @@ bool UBTDecorator_AttackTactics::CalculateRawConditionValue(UBehaviorTreeCompone
 	switch (tacticsIndex)
 	{
 		case 0 :
-			state->SetActionMode();
+			enemy->SetCharacterState(ECharacterState::Attack);
 			break;
 		case 1:
-			state->SetDefendMode();
+			enemy->SetCharacterState(ECharacterState::Defend);
 			break;
 		case 2:
-			state->SetEvadeMode();
+			enemy->SetCharacterState(ECharacterState::Evation);
 			break;
 	}
 

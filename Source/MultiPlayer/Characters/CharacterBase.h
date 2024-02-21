@@ -10,7 +10,9 @@
 #include "Enums/DirectionState.h"
 #include "CharacterBase.generated.h"
 
-class ABoxWeapon;
+class AWeaponBase;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FCharacterStateTypeChanged, ECharacterState, InPrevType, ECharacterState, InNewType);
 
 UCLASS()
 class MULTIPLAYER_API ACharacterBase : public ACharacter, public IGenericTeamAgentInterface
@@ -25,13 +27,13 @@ protected:
 	FCharacterStatus CurStatus;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	TEnumAsByte<ECharacterState> CharacterState;
+	ECharacterState CharacterState;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	TEnumAsByte<EDirectionState> HitDirection;
+	EDirectionState HitDirection;
 
-	//UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	//TSoftObjectPtr<AWeaponBase> Weapon;
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+	TObjectPtr<AWeaponBase> Weapon;
   
 	/* Generic Team Agent Interface */
 	UPROPERTY(VisibleDefaultsOnly, Category = "AI")
@@ -57,8 +59,10 @@ public:
 
 	const FCharacterStatus& GetStatus() const { return CurStatus; }
 
-	const ECharacterState GetCharacterState() const { return CharacterState.GetValue(); }
-	const EDirectionState GetHitDirection() const { return HitDirection.GetValue(); }
+	const ECharacterState GetCharacterState() const { return CharacterState; }
+	const EDirectionState GetHitDirection() const { return HitDirection; }
+
+	TObjectPtr<AWeaponBase> GetWeapon() { return Weapon; }
 		
 	const bool IsFalling() const { return GetCharacterMovement()->IsFalling(); }
 	const bool IsSaveHit() { return bSaveHit; }
@@ -66,18 +70,24 @@ public:
 	void SetInvincibility(const bool Value) { bInvincibility = Value; }
 	const bool& IsInvincibility() const { return bInvincibility; }
 
+	void SetCharacterState(ECharacterState InState);
+
 public :
 	// ~Begin IGeneric Team Agent Interface
-	/** ÁöÁ¤µÈ TeamID¿¡ ÆÀ ¿¡ÀÌÀüÆ®¸¦ ÇÒ´çÇÕ´Ï´Ù. */
 	virtual void SetGenericTeamId(const FGenericTeamId& TeamID) override;
 
-	/** FGenericTeamId Çü½ÄÀ¸·Î ÆÀ ½Äº°ÀÚ¸¦ °Ë»öÇÕ´Ï´Ù. */
 	virtual FGenericTeamId GetGenericTeamId() const override;
 	// ~End IGeneric Team Agent Interface
   
+public :
+	/* 
+	* Character State Type Changed Delegate
+	* ex) FuntionName(ECharacterState InPrevType, ECharacterState InNewType);
+	*/
+	UPROPERTY(BlueprintAssignable)
+		FCharacterStateTypeChanged OnCharacterStateTypeChanged;
     
 private:
-	/* ¹«Àû */
 	bool bInvincibility = false;
 	bool bSaveHit = false;
 };

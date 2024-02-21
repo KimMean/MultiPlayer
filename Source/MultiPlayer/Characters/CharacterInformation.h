@@ -4,14 +4,14 @@
 #include "CharacterInformation.generated.h"
 
 USTRUCT(BlueprintType)
-struct FCharacterStatus
+struct FCharacterStatus : public FTableRowBase
 {
 	GENERATED_BODY()
 
 public:
 	/* 닉네임 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	FString PlayerName;
+	FString CharacterName;
 
 	///* 레벨 */
 	//UPROPERTY(EditAnywhere)

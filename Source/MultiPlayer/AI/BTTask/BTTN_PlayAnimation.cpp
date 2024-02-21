@@ -1,11 +1,16 @@
 #include "AI/BTTask/BTTN_PlayAnimation.h"
 
+#include "Characters/CharacterBase.h"
 #include "Characters/Enemies/EnemyBase.h"
 #include "Components/Enemy/EnemyAnimationComponent.h"
 #include "GameSetting/Controllers/AIControllerBase.h"
 
+#include "Enums/CharacterState.h"
+#include "Utilities/DebugLog.h"
+
 UBTTN_PlayAnimation::UBTTN_PlayAnimation()
 {
+	bNotifyTick = true;
 	NodeName = "PlayAnimation";
 }
 
@@ -24,12 +29,15 @@ EBTNodeResult::Type UBTTN_PlayAnimation::ExecuteTask(UBehaviorTreeComponent& Own
 
 void UBTTN_PlayAnimation::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
-	// Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds); // Empty
+	Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds); // Empty
 
 	TObjectPtr<AAIControllerBase> controller = Cast<AAIControllerBase>(OwnerComp.GetOwner());
-	TObjectPtr<AEnemyBase> enemy = Cast<AEnemyBase>(controller->GetPawn());
-	UEnemyStateComponent* state = enemy->GetEnemyStateComponent();
+	TObjectPtr<ACharacterBase> enemy = Cast<ACharacterBase>(controller->GetPawn());
 
-	if(state->IsIdleMode())
+	//DebugLog::Print(UCharacterState::ToString(enemy->GetCharacterState()));
+
+	if(enemy->GetCharacterState() == ECharacterState::Idle)
+	{
 		FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
+	}
 }

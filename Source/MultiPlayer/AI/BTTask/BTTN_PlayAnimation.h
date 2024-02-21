@@ -2,9 +2,13 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTTaskNode.h"
-#include "Components/Enemy/EnemyStateComponent.h"
+#include "Enums/CharacterState.h"
 #include "BTTN_PlayAnimation.generated.h"
 
+/*
+* Only Enemy class
+* need AnimationComponent
+*/
 UCLASS()
 class MULTIPLAYER_API UBTTN_PlayAnimation : public UBTTaskNode
 {
@@ -22,6 +26,6 @@ protected :
 
 protected :
 	UPROPERTY(EditAnywhere)
-		EEnemyStateType StateType;
+		ECharacterState StateType;
 
 };
