@@ -1,7 +1,6 @@
 #include "Actors/Weapons/WeaponBase.h"
 #include "Components/StaticMeshComponent.h"
 
-#include "Components/DamageComponent.h"
 #include "Utilities/DebugLog.h"
 
 AWeaponBase::AWeaponBase()
@@ -9,7 +8,6 @@ AWeaponBase::AWeaponBase()
 	PrimaryActorTick.bCanEverTick = true;
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
-	DamageComponent = CreateDefaultSubobject<UDamageComponent>("DamageComponent");
 }
 
 void AWeaponBase::BeginPlay()
@@ -46,8 +44,6 @@ void AWeaponBase::OnBegin(UPrimitiveComponent* OverlappedComponent, AActor* Othe
 	if (OtherActor == nullptr) return;
 	if (OtherActor == this) return;
 	if (OtherActor == GetOwner()) return;
-
-	DamageComponent->GiveDamage(GetOwner(), OtherActor, Damage, AttackType, SweepResult);
 }
 
 void AWeaponBase::OnEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)

@@ -3,11 +3,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "GenericTeamAgentInterface.h"
-#include "GameFramework/CharacterMovementComponent.h"
-#include "CharacterInformation.h"
 #include "Enums/AttackType.h"
 #include "Enums/CharacterState.h"
 #include "Enums/DirectionState.h"
+#include "CharacterInformation.h"
 #include "CharacterBase.generated.h"
 
 class AWeaponBase;
@@ -20,20 +19,8 @@ class MULTIPLAYER_API ACharacterBase : public ACharacter, public IGenericTeamAge
 	GENERATED_BODY()
 
 protected:
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	FCharacterStatus OriginStatus;
-
-	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	FCharacterStatus CurStatus;
-
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	ECharacterState CharacterState;
-
-	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	EDirectionState HitDirection;
-
-	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	TObjectPtr<AWeaponBase> Weapon;
   
 	/* Generic Team Agent Interface */
 	UPROPERTY(VisibleDefaultsOnly, Category = "AI")
@@ -48,28 +35,8 @@ protected:
 	virtual void Tick(float DeltaSeconds) override;
 
 public:
-	void StopMove();
-	void ResumeMove();
-
-public:
-	virtual void ResetState();
-	virtual void ResetHitState();
-	
-	virtual const bool GetDamage(const int32 Damage, const EAttackType Type, const FVector OtherLocation, const FHitResult& SweepResult);
-
-	const FCharacterStatus& GetStatus() const { return CurStatus; }
-
 	const ECharacterState GetCharacterState() const { return CharacterState; }
-	const EDirectionState GetHitDirection() const { return HitDirection; }
-
-	TObjectPtr<AWeaponBase> GetWeapon() { return Weapon; }
 		
-	const bool IsFalling() const { return GetCharacterMovement()->IsFalling(); }
-	const bool IsSaveHit() { return bSaveHit; }
-
-	void SetInvincibility(const bool Value) { bInvincibility = Value; }
-	const bool& IsInvincibility() const { return bInvincibility; }
-
 	void SetCharacterState(ECharacterState InState);
 
 public :
