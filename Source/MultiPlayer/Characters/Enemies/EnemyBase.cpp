@@ -9,6 +9,7 @@
 AEnemyBase::AEnemyBase()
 {
 	SetGenericTeamId(2);
+	Tags.Add(TEXT("Enemy"));
 
 	//State = CreateDefaultSubobject<UEnemyStateComponent>(TEXT("StateComponent"));
 	Animation = CreateDefaultSubobject<UEnemyAnimationComponent>(TEXT("AnimationComponent"));
