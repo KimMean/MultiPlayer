@@ -2,8 +2,6 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimInstance.h"
-#include "Enums/CharacterState.h"
-#include "Enums/DirectionState.h"
 #include "AnimInstanceBase.generated.h"
 
 /**
@@ -21,22 +19,11 @@ protected:
 	TWeakObjectPtr<ACharacterBase> Character = nullptr;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	ECharacterState CharacterState;
-
-	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	EDirectionState HitDirection;
-
-	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	float Speed = 0.0f;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	float Direction = 0.0f;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	bool bFalling = false;
-
-	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	bool bSaveHit = false;
 
 public:
 	UAnimInstanceBase();

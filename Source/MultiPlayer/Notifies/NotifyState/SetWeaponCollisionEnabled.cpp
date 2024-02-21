@@ -14,10 +14,10 @@ void USetWeaponCollisionEnabled::NotifyBegin(USkeletalMeshComponent* MeshComp, U
 
 	if (MeshComp->GetWorld()->WorldType == EWorldType::EditorPreview) return;
 
-	TObjectPtr<ACharacterBase> character = Cast<ACharacterBase>(MeshComp->GetOwner());
-	TObjectPtr<AWeaponBase> weapon = character->GetWeapon();
-	if (weapon == nullptr) return;
-	weapon->SetCollisionEnabled(true);
+	//TObjectPtr<ACharacterBase> character = Cast<ACharacterBase>(MeshComp->GetOwner());
+	//TObjectPtr<AWeaponBase> weapon = character->GetWeapon();
+	//if (weapon == nullptr) return;
+	//weapon->SetCollisionEnabled(true);
 }
 
 void USetWeaponCollisionEnabled::NotifyEnd(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
@@ -26,8 +26,8 @@ void USetWeaponCollisionEnabled::NotifyEnd(USkeletalMeshComponent* MeshComp, UAn
 
 	if (MeshComp->GetWorld()->WorldType == EWorldType::EditorPreview) return;
 
-	TObjectPtr<ACharacterBase> character = Cast<ACharacterBase>(MeshComp->GetOwner());
-	TObjectPtr<AWeaponBase> weapon = character->GetWeapon();
-	if (weapon == nullptr) return;
-	weapon->SetCollisionEnabled(false);
+	//TObjectPtr<ACharacterBase> character = Cast<ACharacterBase>(MeshComp->GetOwner());
+	//TObjectPtr<AWeaponBase> weapon = character->GetWeapon();
+	//if (weapon == nullptr) return;
+	//weapon->SetCollisionEnabled(false);
 }

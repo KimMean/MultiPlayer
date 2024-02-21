@@ -1,7 +1,6 @@
 #include "Actors/Weapons/BoxWeapon.h"
 #include "Components/BoxComponent.h"
 
-#include "Components/DamageComponent.h"
 #include "Utilities/DebugLog.h"
 
 ABoxWeapon::ABoxWeapon()
