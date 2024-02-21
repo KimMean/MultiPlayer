@@ -12,6 +12,10 @@ class MULTIPLAYER_API ASpiderBase : public AEnemyBase
 public:
 	ASpiderBase();
 
+	//~ Begin AEnemyBase Interface.
+	virtual void PostInitializeComponents() override;
+	//~ End AEnemyBase Interface.
+
 protected:
 	virtual void BeginPlay() override;
 };

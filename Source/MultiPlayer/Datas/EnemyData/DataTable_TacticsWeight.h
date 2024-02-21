@@ -5,6 +5,7 @@
 #include "Characters/Enemies/EnemyBase.h"
 #include "DataTable_TacticsWeight.generated.h"
 
+/* It is managed as a data table. */
 USTRUCT(BlueprintType)
 struct FTacticsWeightData : public FTableRowBase
 {

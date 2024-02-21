@@ -2,12 +2,12 @@
 
 #include "Utilities/DebugLog.h"
 
-FEnemyAnimData UEnemyAnimationData::GetAnimationData(const EEnemyStateType& InEnemyStateType)
+FEnemyAnimData UEnemyAnimationData::GetAnimationData(const ECharacterState& InEnemyStateType)
 {
 	return AnimationDatas[InEnemyStateType];
 }
 
-TObjectPtr<UAnimMontage> UEnemyAnimationData::GetAnimationMontageData(const EEnemyStateType& InEnemyStateType)
+TObjectPtr<UAnimMontage> UEnemyAnimationData::GetAnimationMontageData(const ECharacterState& InEnemyStateType)
 {
 	const FEnemyAnimData Datas = AnimationDatas[InEnemyStateType];
 	const TArray<TObjectPtr<UAnimMontage>> MontageData = Datas.AnimationMontage;

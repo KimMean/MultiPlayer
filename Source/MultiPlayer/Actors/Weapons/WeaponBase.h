@@ -55,8 +55,13 @@ public:
 	*/
 	void SetCollisionEnabled(const bool Value);
 
+	void SetDamage(int InDamage);
 	void SetAttachOffset(const FVector Value) { AttachOffset = Value; }
 	const FVector& GetAttachOffset() const { return AttachOffset; }
+
+public :
+	/* Only SphereComponent can be used. */
+	virtual void SetCollisionRadius(float InRadius) {}
 
 protected:
 	UFUNCTION()

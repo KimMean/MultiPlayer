@@ -13,6 +13,11 @@ ASpiderBase::ASpiderBase()
 	GetMesh()->SetRelativeLocation(FVector(0, 0, -60));
 }
 
+void ASpiderBase::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+}
+
 void ASpiderBase::BeginPlay()
 {
 	Super::BeginPlay();

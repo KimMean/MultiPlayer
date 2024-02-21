@@ -15,11 +15,26 @@ FString UCharacterState::ToString(ECharacterState Value)
 	case ECharacterState::Idle:
 		str = L"Idle";
 		break;
+	case ECharacterState::Wait:
+		str = L"Wait";
+		break;
 	case ECharacterState::Move:
 		str = L"Move";
 		break;
 	case ECharacterState::Attack:
 		str = L"Attack";
+		break;
+	case ECharacterState::Defend:
+		str = L"Defend";
+		break;
+	case ECharacterState::Patrol:
+		str = L"Patrol";
+		break;
+	case ECharacterState::Chase:
+		str = L"Chase";
+		break;
+	case ECharacterState::Hold:
+		str = L"Hold";
 		break;
 	case ECharacterState::Smash:
 		str = L"Smash";
