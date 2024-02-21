@@ -29,9 +29,6 @@ protected:
 	UStaticMeshComponent* Mesh = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	UDamageComponent* DamageComponent = nullptr;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int Damage;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)

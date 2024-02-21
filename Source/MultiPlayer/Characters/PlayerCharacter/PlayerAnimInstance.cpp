@@ -12,21 +12,15 @@ void UPlayerAnimInstance::NativeBeginPlay()
 {
 	Super::NativeBeginPlay();
 
-	OwnerCharacter = Cast<APlayerBase>(Character);
-	if (OwnerCharacter.IsValid() == false) return;
+	Character = Cast<APlayerBase>(Character);
+	if (Character.IsValid() == false) return;
 
 }
 
 void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
 	Super::NativeUpdateAnimation(DeltaSeconds);
-	if (OwnerCharacter.IsValid() == false) return;
+	if (Character.IsValid() == false) return;
 
-	bEvation = OwnerCharacter->IsEvation();
-	bAttacking = OwnerCharacter->IsAttacking();
-
-	AttackCombo = OwnerCharacter->GetAttackCombo();
-
-	MoveDirection = OwnerCharacter->GetDirection();
 
 }

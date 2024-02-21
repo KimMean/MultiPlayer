@@ -27,10 +27,4 @@ void UAnimInstanceBase::NativeUpdateAnimation(float DeltaSeconds)
 
 	Direction = UKismetAnimationLibrary::CalculateDirection(Character->GetVelocity(), Character->GetActorRotation());
 	Speed = Character->GetVelocity().Size();
-
-	CharacterState = Character->GetCharacterState();
-	HitDirection = Character->GetHitDirection();
-
-	bFalling = Character->IsFalling();	
-	bSaveHit = Character->IsSaveHit();
 }
