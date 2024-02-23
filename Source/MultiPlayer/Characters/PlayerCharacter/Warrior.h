@@ -22,8 +22,7 @@ protected:
 
 	virtual void Tick(float DeltaSeconds) override;
 
-protected:
-	virtual void OnAttacking() {}
-	virtual void OnSmashing() {}
+	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
 
 };

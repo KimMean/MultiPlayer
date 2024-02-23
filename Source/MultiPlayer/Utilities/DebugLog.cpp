@@ -26,6 +26,11 @@ void DebugLog::Print(const FString& InValue, int32 InKey, float Duration, FColor
 	GEngine->AddOnScreenDebugMessage(InKey, Duration, InColor, InValue);
 }
 
+void DebugLog::Print(const FVector2D& InValue, int32 InKey, float Duration, FColor InColor)
+{
+	GEngine->AddOnScreenDebugMessage(InKey, Duration, InColor, InValue.ToString());
+}
+
 void DebugLog::Print(const FVector& InValue, int32 InKey, float Duration, FColor InColor)
 {
 	GEngine->AddOnScreenDebugMessage(InKey, Duration, InColor, InValue.ToString());
