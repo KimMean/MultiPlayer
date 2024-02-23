@@ -16,7 +16,7 @@ class MULTIPLAYER_API UAnimInstanceBase : public UAnimInstance
 
 protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	TWeakObjectPtr<ACharacterBase> Character = nullptr;
+	TObjectPtr<ACharacterBase> Character = nullptr;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	float Speed = 0.0f;
@@ -27,7 +27,10 @@ protected:
 
 public:
 	UAnimInstanceBase();
+
+	// ~Begin UAnimInstance Interface
 	virtual void NativeBeginPlay() override;
 
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+	// ~End UAnimInstance Interface
 };

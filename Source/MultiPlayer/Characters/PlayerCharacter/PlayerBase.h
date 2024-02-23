@@ -13,19 +13,6 @@ class AWeaponBase;
 
 struct FInputActionInstance;
 
-//USTRUCT(BlueprintType)
-//struct FSkillInformation
-//{
-//	GENERATED_BODY()
-//
-//protected:
-//	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-//	UFunction Test;
-//
-//	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-//	TWeakPtr<UAnimMontage> SkillAnim;
-//};
-
 UCLASS()
 class MULTIPLAYER_API APlayerBase : public ACharacterBase
 {
@@ -43,10 +30,22 @@ protected:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+private :
+	void OnMove(const FInputActionInstance& Instance);
+
 protected:
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Component")
+	UPROPERTY(EditAnywhere, Category = "Player|Component")
 		TObjectPtr<USpringArmComponent> SpringArm = nullptr;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Component")
+	UPROPERTY(EditAnywhere, Category = "Player|Component")
 		TObjectPtr<UCameraComponent> Camera = nullptr;
+
+protected :
+	/* Player Input Mapping Context */
+	UPROPERTY(EditAnywhere, Category = "Input")
+		TObjectPtr<UInputMappingContext> InputMapping;
+
+	/* Player Input Action */
+	UPROPERTY(EditAnywhere, Category = "Input")
+		TMap<FString, TObjectPtr<UInputAction>> InputActions;
 };

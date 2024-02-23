@@ -13,14 +13,12 @@ void UPlayerAnimInstance::NativeBeginPlay()
 	Super::NativeBeginPlay();
 
 	Character = Cast<APlayerBase>(Character);
-	if (Character.IsValid() == false) return;
 
 }
 
 void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
 	Super::NativeUpdateAnimation(DeltaSeconds);
-	if (Character.IsValid() == false) return;
 
 
 }
