@@ -18,14 +18,6 @@ class MULTIPLAYER_API ACharacterBase : public ACharacter, public IGenericTeamAge
 {
 	GENERATED_BODY()
 
-protected:
-	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	ECharacterState CharacterState;
-  
-	/* Generic Team Agent Interface */
-	UPROPERTY(VisibleDefaultsOnly, Category = "AI")
-		FGenericTeamId GenericTeamID;
-
 public:
 	ACharacterBase();
 
@@ -53,8 +45,12 @@ public :
 	*/
 	UPROPERTY(BlueprintAssignable)
 		FCharacterStateTypeChanged OnCharacterStateTypeChanged;
-    
-private:
-	bool bInvincibility = false;
-	bool bSaveHit = false;
+
+protected:
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+		ECharacterState CharacterState;
+
+	/* Generic Team Agent Interface */
+	UPROPERTY(VisibleDefaultsOnly, Category = "AI")
+		FGenericTeamId GenericTeamID;
 };

@@ -1,9 +1,10 @@
 #include "Characters/PlayerCharacter/PlayerBase.h"
 
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
+#include "InputMappingContext.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
-#include "Kismet/KismetMathLibrary.h"
-#include "Kismet/GameplayStatics.h"
 
 #include "Utilities/DebugLog.h"
 
@@ -44,7 +45,17 @@ APlayerBase::APlayerBase()
 void APlayerBase::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
+	APlayerController* PlayerController = Cast<APlayerController>(Controller);
+	if (PlayerController != nullptr)
+	{
+		UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem< UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer());
+		if (Subsystem != nullptr)
+		{
+			Subsystem->AddMappingContext(InputMapping, 0);
+			DebugLog::Print("AddMappingContext");
+		}
+	}
 	
 }
 
@@ -56,5 +67,22 @@ void APlayerBase::Tick(float DeltaSeconds)
 
 void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	UEnhancedInputComponent* input = Cast<UEnhancedInputComponent>(PlayerInputComponent);
+
+	if (input == nullptr) return;
+
+	input->BindAction(InputActions.FindRef("Move"), ETriggerEvent::Triggered, this, &APlayerBase::OnMove);
+
+	DebugLog::Print("SetupPlayerInputComponent");
+}
+
+void APlayerBase::OnMove(const FInputActionInstance& Instance)
+{
+	DebugLog::Print(Instance.GetValue().Get<FVector2D>());
+
+	FVector2D moveDirection = Instance.GetValue().Get<FVector2D>();
+
+	AddMovementInput(GetActorRightVector(), moveDirection.X);
+	AddMovementInput(GetActorForwardVector(), moveDirection.Y);
 }
