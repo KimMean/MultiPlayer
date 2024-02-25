@@ -7,6 +7,7 @@
 #include "Perception/AISenseConfig_Sight.h"
 
 #include "Characters/Enemies/EnemyBase.h"
+#include "Components/StateComponent.h"
 #include "Utilities/DebugLog.h"
 
 AAIControllerBase::AAIControllerBase()
@@ -57,7 +58,7 @@ void AAIControllerBase::OnPossess(APawn* InPawn)
 	OwnerEnemy = Cast<AEnemyBase>(InPawn);
 
 	// StateType Change Delegate
-	OwnerEnemy->OnCharacterStateTypeChanged.AddDynamic(this, &AAIControllerBase::OnCharacterStateChanged);
+	OwnerEnemy->GetCharacterStateComponent()->CharacterStateChangedDelegate.AddDynamic(this, &AAIControllerBase::OnCharacterStateChanged);
 
 	PerceptionComponent->OnPerceptionUpdated.AddDynamic(this, &AAIControllerBase::OnPerceptionUpdated);
 
@@ -127,7 +128,7 @@ void AAIControllerBase::SetActionRange(float InActionRange)
 	ActionRange = InActionRange;
 }
 
-void AAIControllerBase::OnCharacterStateChanged(ECharacterState InPrevType, ECharacterState InNewType)
+void AAIControllerBase::OnCharacterStateChanged(ECharacterState InPrevState, ECharacterState InNewState)
 {
-	Blackboard->SetValueAsEnum(TEXT("State"), (uint8)InNewType);
+	Blackboard->SetValueAsEnum(TEXT("State"), (uint8)InNewState);
 }

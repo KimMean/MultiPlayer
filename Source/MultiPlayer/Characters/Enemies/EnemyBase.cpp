@@ -12,7 +12,7 @@ AEnemyBase::AEnemyBase()
 	Tags.Add(TEXT("Enemy"));
 
 	//State = CreateDefaultSubobject<UEnemyStateComponent>(TEXT("StateComponent"));
-	Animation = CreateDefaultSubobject<UEnemyAnimationComponent>(TEXT("AnimationComponent"));
+	//Animation = CreateDefaultSubobject<UEnemyAnimationComponent>(TEXT("AnimationComponent"));
 
 	AIController = AAIControllerBase::StaticClass();
 	AIControllerClass = AIController;
@@ -44,10 +44,10 @@ UBehaviorTree* AEnemyBase::GetBehaviorTree()
 //	return State;
 //}
 
-UEnemyAnimationComponent* AEnemyBase::GetEnemyAnimationComponent()
-{
-	return Animation;
-}
+//UEnemyAnimationComponent* AEnemyBase::GetEnemyAnimationComponent()
+//{
+//	return Animation;
+//}
 
 //void AEnemyBase::OnEnemyStateChanged(EEnemyStateType InPrevType, EEnemyStateType InNewType)
 //{

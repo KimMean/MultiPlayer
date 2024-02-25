@@ -56,7 +56,7 @@ public :
 
 public :
 	UFUNCTION()
-		virtual void OnCharacterStateChanged(ECharacterState InPrevType, ECharacterState InNewType);
+		virtual void OnCharacterStateChanged(ECharacterState InPrevState, ECharacterState InNewState);
 
 
 protected:

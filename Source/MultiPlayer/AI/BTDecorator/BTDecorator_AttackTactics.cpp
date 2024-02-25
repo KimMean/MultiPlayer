@@ -3,6 +3,8 @@
 #include "GameSetting/GameInstance/GameInstanceBase.h"
 #include "GameSetting/Controllers/AIControllerBase.h"
 #include "Characters/Enemies/EnemyBase.h"
+#include "Characters/CharacterBase.h"
+#include "Components/StateComponent.h"
 
 #include "Utilities/UsefulMath.h"
 #include "Utilities/DebugLog.h"
@@ -16,6 +18,7 @@ bool UBTDecorator_AttackTactics::CalculateRawConditionValue(UBehaviorTreeCompone
 {
 	TObjectPtr<AAIControllerBase> controller = Cast<AAIControllerBase>(OwnerComp.GetOwner());
 	TObjectPtr<AEnemyBase> enemy = Cast<AEnemyBase>(controller->GetPawn());
+	//TObjectPtr<ACharacterBase> character = Cast<ACharacterBase>(controller->GetPawn());
 
 	TObjectPtr<AActor> target = controller->GetTargetActor();
 
@@ -26,7 +29,7 @@ bool UBTDecorator_AttackTactics::CalculateRawConditionValue(UBehaviorTreeCompone
 	// 적이 뒤를 보고 있는 경우 무조건 공격 모드로
 	if (dot > 0)
 	{
-		enemy->SetCharacterState(ECharacterState::Attack);
+		enemy->GetCharacterStateComponent()->SetAttackMode();
 		return true;
 	}
 
@@ -37,13 +40,13 @@ bool UBTDecorator_AttackTactics::CalculateRawConditionValue(UBehaviorTreeCompone
 	switch (tacticsIndex)
 	{
 		case 0 :
-			enemy->SetCharacterState(ECharacterState::Attack);
+			enemy->GetCharacterStateComponent()->SetAttackMode();
 			break;
 		case 1:
-			enemy->SetCharacterState(ECharacterState::Defend);
+			enemy->GetCharacterStateComponent()->SetDefendMode();
 			break;
 		case 2:
-			enemy->SetCharacterState(ECharacterState::Evation);
+			enemy->GetCharacterStateComponent()->SetEvationMode();
 			break;
 	}
 

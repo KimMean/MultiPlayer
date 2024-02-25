@@ -5,7 +5,7 @@
 #include "Enums/CharacterState.h"
 #include "AnimationComponent.generated.h"
 
-class UEnemyAnimationData;
+class UAnimationDataAssets;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class MULTIPLAYER_API UAnimationComponent : public UActorComponent
@@ -22,9 +22,14 @@ protected:
 public:
 	/* TMap<ECharacterState, TArray<AnimationMontage> */
 	void PlayAnimMontage(ECharacterState InState);
+	void PlayAnimMontageByIndex(ECharacterState InState, int InIndex);
+	void PlayAnimMontageByRandom(ECharacterState InState);
+
+private :
+	void PlayAnimMontage(TObjectPtr<UAnimMontage> InMontage);
 
 private:
 	/* Animation Montage Data */
 	UPROPERTY(EditDefaultsOnly)
-		TObjectPtr<UEnemyAnimationData> AnimDatas;
+		TObjectPtr<UAnimationDataAssets> AnimDatas;
 };

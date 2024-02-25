@@ -2,7 +2,8 @@
 
 #include "Characters/CharacterBase.h"
 #include "Characters/Enemies/EnemyBase.h"
-#include "Components/Enemy/EnemyAnimationComponent.h"
+#include "Components/StateComponent.h"
+#include "Components/AnimationComponent.h"
 #include "GameSetting/Controllers/AIControllerBase.h"
 
 #include "Enums/CharacterState.h"
@@ -19,10 +20,10 @@ EBTNodeResult::Type UBTTN_PlayAnimation::ExecuteTask(UBehaviorTreeComponent& Own
 	Super::ExecuteTask(OwnerComp, NodeMemory);
 
 	TObjectPtr<AAIControllerBase> controller = Cast<AAIControllerBase>(OwnerComp.GetOwner());
-	TObjectPtr<AEnemyBase> enemy = Cast<AEnemyBase>(controller->GetPawn());
-	UEnemyAnimationComponent* animation = enemy->GetEnemyAnimationComponent();
+	TObjectPtr<ACharacterBase> character = Cast<ACharacterBase>(controller->GetPawn());
+	UAnimationComponent* animation = character->GetAnimationComponent();
 
-	animation->PlayAnimMontage(StateType);
+	animation->PlayAnimMontageByRandom(StateType);
 
 	return EBTNodeResult::InProgress;
 }
@@ -32,11 +33,11 @@ void UBTTN_PlayAnimation::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* Nod
 	Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds); // Empty
 
 	TObjectPtr<AAIControllerBase> controller = Cast<AAIControllerBase>(OwnerComp.GetOwner());
-	TObjectPtr<ACharacterBase> enemy = Cast<ACharacterBase>(controller->GetPawn());
+	TObjectPtr<ACharacterBase> character = Cast<ACharacterBase>(controller->GetPawn());
 
 	//DebugLog::Print(UCharacterState::ToString(enemy->GetCharacterState()));
 
-	if(enemy->GetCharacterState() == ECharacterState::Idle)
+	if(character->GetCharacterStateComponent()->GetIsIdleMode())
 	{
 		FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
 	}

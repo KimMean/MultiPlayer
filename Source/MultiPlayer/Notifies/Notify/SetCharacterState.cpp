@@ -1,6 +1,7 @@
 #include "Notifies/Notify/SetCharacterState.h"
 
 #include "Characters/CharacterBase.h"
+#include "Components/StateComponent.h"
 
 FString USetCharacterState::GetNotifyName_Implementation() const
 {
@@ -14,5 +15,5 @@ void USetCharacterState::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceB
 	if (MeshComp->GetWorld()->WorldType == EWorldType::EditorPreview) return;
 
 	TObjectPtr<ACharacterBase> character = Cast<ACharacterBase>(MeshComp->GetOwner());
-	character->SetCharacterState(StateType);
+	character->GetCharacterStateComponent()->SetCharacterState(CharacterState);
 }

@@ -49,6 +49,7 @@ FString UCharacterState::ToString(ECharacterState Value)
 		str = L"Death";
 		break;
 	default:
+		str = L"Empty";
 		break;
 	}
 
