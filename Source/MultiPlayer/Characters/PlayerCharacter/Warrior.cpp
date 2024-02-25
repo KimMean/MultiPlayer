@@ -1,7 +1,10 @@
 #include "Characters/PlayerCharacter/Warrior.h"
 
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/AnimationComponent.h"
 
+
+#include "Utilities/DebugLog.h"
 AWarrior::AWarrior()
 {
 	
@@ -24,4 +27,37 @@ void AWarrior::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 }
+
+void AWarrior::OnAttack()
+{
+	//DebugLog::Print("OnAttack");
+
+	// 공격모드가 아닐경우 공격
+	if(!CharacterState->GetIsAttackMode())
+	{
+		ComboCount = 0;
+		bComboAttack = false;
+		CharacterState->SetAttackMode();
+		Animation->PlayAnimMontage(ECharacterState::Attack);
+	}
+	else
+	{
+		// 공격 중, 연속 공격이 가능, 콤보 공격이 예정되지 않음
+		if (bComboEnable && !bComboAttack)
+		{
+			ComboCount++;
+			bComboAttack = true;
+		}
+	}
+}
+
+void AWarrior::ExtraAttack()
+{
+	if (!bComboAttack) return;
+
+	bComboAttack = false;
+	Animation->PlayAnimMontageByIndex(ECharacterState::Attack, ComboCount);
+
+}
+
 

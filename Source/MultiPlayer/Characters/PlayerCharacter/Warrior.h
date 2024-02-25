@@ -9,6 +9,8 @@
 /**
  * 
  */
+
+
 UCLASS()
 class MULTIPLAYER_API AWarrior : public APlayerBase
 {
@@ -22,7 +24,12 @@ protected:
 
 	virtual void Tick(float DeltaSeconds) override;
 
-	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	// ~Begin Player Base Interface
+	/* Attacks when you click the left mouse button. */
+	virtual void OnAttack() override;
 
+	/* This function is called by notify */
+	virtual void ExtraAttack() override;
 
+	// ~End Player Base Interface
 };
