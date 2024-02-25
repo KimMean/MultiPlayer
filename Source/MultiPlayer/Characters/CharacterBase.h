@@ -7,8 +7,11 @@
 #include "Enums/CharacterState.h"
 #include "Enums/DirectionState.h"
 #include "CharacterInformation.h"
+#include "Components/StateComponent.h"
 #include "CharacterBase.generated.h"
 
+//class UStateComponent;
+class UAnimationComponent;
 class AWeaponBase;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FCharacterStateTypeChanged, ECharacterState, InPrevType, ECharacterState, InNewType);
@@ -26,10 +29,20 @@ protected:
 
 	virtual void Tick(float DeltaSeconds) override;
 
+
+/*
+* Default Properties
+* Get {}
+* Set {}
+*/
 public:
-	const ECharacterState GetCharacterState() const { return CharacterState; }
+	/* Character State Component */
+	const TObjectPtr<UStateComponent> GetCharacterStateComponent() const;
 		
-	void SetCharacterState(ECharacterState InState);
+	//void SetCharacterState(ECharacterState InState);
+
+	/* return Animation Component */
+	UAnimationComponent* GetAnimationComponent();
 
 public :
 	// ~Begin IGeneric Team Agent Interface
@@ -39,18 +52,19 @@ public :
 	// ~End IGeneric Team Agent Interface
   
 public :
-	/* 
-	* Character State Type Changed Delegate
-	* ex) FuntionName(ECharacterState InPrevType, ECharacterState InNewType);
-	*/
-	UPROPERTY(BlueprintAssignable)
-		FCharacterStateTypeChanged OnCharacterStateTypeChanged;
+	UFUNCTION()
+		virtual void OnCharacterStateChanged(ECharacterState InPrevState, ECharacterState InNewState);
 
 protected:
-	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-		ECharacterState CharacterState;
+	/* Character State Component */
+	UPROPERTY(EditDefaultsOnly)
+		TObjectPtr<UStateComponent> CharacterState;
+
+	/* Animation Component */
+	UPROPERTY(EditDefaultsOnly)
+		TObjectPtr<UAnimationComponent> Animation;
 
 	/* Generic Team Agent Interface */
-	UPROPERTY(VisibleDefaultsOnly, Category = "AI")
+	UPROPERTY(VisibleDefaultsOnly, Category = "Character|TeamID")
 		FGenericTeamId GenericTeamID;
 };

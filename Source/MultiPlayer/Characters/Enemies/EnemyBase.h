@@ -43,8 +43,6 @@ protected :
 public:
 	/* return Behavior Tree */
 	UBehaviorTree* GetBehaviorTree();
-	/* return Enemy Animation Component */
-	UEnemyAnimationComponent* GetEnemyAnimationComponent();
 
 
 
@@ -62,11 +60,6 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Enemy|AI|Behavior")
 		TObjectPtr<UBehaviorTree> BehaviorTree;
 
-protected :
-
-	/* Enemy StateComponent */
-	UPROPERTY(VisibleDefaultsOnly, Category = "Enemy|State")
-		TObjectPtr<UEnemyAnimationComponent> Animation;
 
 protected :
 	/* 몬스터의 전술 타입 */
