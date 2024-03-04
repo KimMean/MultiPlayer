@@ -58,6 +58,9 @@ public :
 	UFUNCTION()
 		virtual void OnCharacterStateChanged(ECharacterState InPrevState, ECharacterState InNewState);
 
+public :
+	UFUNCTION(Exec)
+		void EnableDebugDrawing(bool InActive);
 
 protected:
 	/* OwnerEnemy ºùÀÇÇÑ Pawn */

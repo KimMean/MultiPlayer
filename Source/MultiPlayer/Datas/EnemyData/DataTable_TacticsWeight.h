@@ -13,7 +13,7 @@ struct FTacticsWeightData : public FTableRowBase
 
 public :
 	UPROPERTY(EditAnywhere)
-		EEnemyType EnemyType = EEnemyType::NONE;
+		EEnemyType EnemyType = EEnemyType::None;
 
 	UPROPERTY(EditAnywhere)
 		float AttackWeight = 1.0f;

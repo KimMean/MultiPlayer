@@ -34,7 +34,7 @@ bool UBTDecorator_AttackTactics::CalculateRawConditionValue(UBehaviorTreeCompone
 	}
 
 	// 가중치에 따라 공격, 방어, 회피를 정합니다.
-	TArray<float> weights = Cast<UGameInstanceBase>(GetWorld()->GetGameInstance())->GetTacticalWeights_Of_EnemyType(enemy->GetEnemyType());
+	TArray<float> weights = Cast<UGameInstanceBase>(GetWorld()->GetGameInstance())->GetTacticalWeights_Of_EnemyType(enemy->GetEnemyTacticsType());
 	int32 tacticsIndex = UsefulMath::WeightedRandomIndex(weights);
 
 	switch (tacticsIndex)

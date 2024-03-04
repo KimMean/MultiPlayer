@@ -1,9 +1,10 @@
 #include "Characters/PlayerCharacter/Warrior.h"
 
+#include "Engine/SkeletalMeshSocket.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/AnimationComponent.h"
 
-
+#include "Actors/Weapons/SwordBase.h"
 #include "Utilities/DebugLog.h"
 AWarrior::AWarrior()
 {
@@ -16,11 +17,21 @@ AWarrior::AWarrior()
 		GetMesh()->SetRelativeLocation(FVector(0, 0, -90));
 		GetMesh()->SetRelativeRotation(FRotator(0, -90, 0));
 	}
+
 }
 
 void AWarrior::BeginPlay()
 {
 	Super::BeginPlay();
+
+	TObjectPtr<UClass> sword = LoadClass<ASwordBase>(NULL, TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Weapons/Swords/BP_SwordBase.BP_SwordBase_C'"));
+	
+	const USkeletalMeshSocket* socket = GetMesh()->GetSocketByName("Weapon");
+	FTransform transform = socket->GetSocketTransform(GetMesh());
+	
+	Weapon = GetWorld()->SpawnActorDeferred<ASwordBase>(sword, transform, this, this, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+	socket->AttachActor(Weapon, GetMesh());
+	Weapon->FinishSpawning(transform);
 }
 
 void AWarrior::Tick(float DeltaSeconds)

@@ -6,7 +6,7 @@
 
 UGameInstanceBase::UGameInstanceBase()
 {
-	ConstructorHelpers::FObjectFinder<UDataTable> TacticalWeightsData(TEXT("/Script/Engine.DataTable'/Game/Enemies/Datas/DT_TacticalWeights.DT_TacticalWeights'"));
+	ConstructorHelpers::FObjectFinder<UDataTable> TacticalWeightsData(TEXT("/Script/Engine.DataTable'/Game/Blueprints/Enemies/Datas/DT_TacticalWeights.DT_TacticalWeights'"));
 	DT_TacticsWeight = TacticalWeightsData.Object;
 }
 

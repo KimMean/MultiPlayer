@@ -5,10 +5,11 @@
 
 ABoxWeapon::ABoxWeapon()
 {
+	CollisionType = ECollisionType::Box;
 	Collision = CreateDefaultSubobject<UBoxComponent>("Collision");
-	RootComponent = Collision;
+	//RootComponent = Collision;
 
-	Mesh->SetupAttachment(RootComponent);
+	//Mesh->SetupAttachment(RootComponent);
 }
 
 void ABoxWeapon::BeginPlay()

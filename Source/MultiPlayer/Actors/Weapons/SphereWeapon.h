@@ -17,7 +17,4 @@ protected:
 
 public:
 	virtual void Tick(float DeltaTime) override;
-
-public :
-	void SetCollisionRadius(float InRadius) override;
 };

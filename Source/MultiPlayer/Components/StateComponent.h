@@ -57,5 +57,6 @@ public :
 		FCharacterStateChangeDelegate CharacterStateChangedDelegate;
 
 private :
-	ECharacterState CharacterState;
+	UPROPERTY(VisibleAnywhere)
+		ECharacterState CharacterState;
 };
