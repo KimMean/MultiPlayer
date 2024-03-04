@@ -34,3 +34,12 @@ int32 UsefulMath::WeightedRandomIndex(TArray<float> InWeights)
 	// 예외 상황, -1이 반환되는 경우는 없어야 합니다.
 	return -1;
 }
+
+FVector UsefulMath::GetRandomLocationWithinRange(FVector InLocation, float InRadius)
+{
+	float xRange = FMath::FRandRange(-InRadius, InRadius);
+	float yRange = FMath::FRandRange(-InRadius, InRadius);
+
+	FVector location = InLocation + (xRange, yRange);
+	return location;
+}

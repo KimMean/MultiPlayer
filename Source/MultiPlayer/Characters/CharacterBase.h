@@ -8,6 +8,7 @@
 #include "Enums/DirectionState.h"
 #include "CharacterInformation.h"
 #include "Components/StateComponent.h"
+#include "Components/StatusComponent.h"
 #include "CharacterBase.generated.h"
 
 //class UStateComponent;
@@ -38,11 +39,15 @@ protected:
 public:
 	/* Character State Component */
 	const TObjectPtr<UStateComponent> GetCharacterStateComponent() const;
+	const TObjectPtr<UStatusComponent> GetCharacterStatusComponent() const;
 		
 	//void SetCharacterState(ECharacterState InState);
 
 	/* return Animation Component */
 	UAnimationComponent* GetAnimationComponent();
+
+public :
+	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 public :
 	// ~Begin IGeneric Team Agent Interface
@@ -55,10 +60,24 @@ public :
 	UFUNCTION()
 		virtual void OnCharacterStateChanged(ECharacterState InPrevState, ECharacterState InNewState);
 
+public :
+	/* Run with Animation Notify */
+	virtual void AbilityActivation(ECharacterState InCharacterState);
+
+	/* Run with Animation Notify State */
+	virtual void MaintainAbility(ECharacterState InCharacterState);
+
+protected :
+	/* Weapon */
+	TObjectPtr<AWeaponBase> Weapon = nullptr;
+
 protected:
 	/* Character State Component */
 	UPROPERTY(EditDefaultsOnly)
 		TObjectPtr<UStateComponent> CharacterState;
+	/* Character Status Component */
+	UPROPERTY(EditDefaultsOnly)
+		TObjectPtr<UStatusComponent> CharacterStatus;
 
 	/* Animation Component */
 	UPROPERTY(EditDefaultsOnly)

@@ -11,7 +11,7 @@
 
 APlayerBase::APlayerBase()
 {
-	PrimaryActorTick.bCanEverTick = true;
+	Tags.Add(TEXT("Player"));
 
 	ConstructorHelpers::FObjectFinder<USkeletalMesh> mesh(TEXT("SkeletalMesh'/Game/Characters/Mannequins/Meshes/SKM_Manny.SKM_Manny'"));
 
@@ -19,7 +19,6 @@ APlayerBase::APlayerBase()
 	{
 		GetMesh()->SetSkeletalMesh(mesh.Object);
 		GetMesh()->SetRelativeLocation(FVector(0, 0, -90));
-		GetMesh()->SetRelativeRotation(FRotator(0, -90, 0));
 	}
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
@@ -155,8 +154,6 @@ void APlayerBase::OnCharacterStateChanged(ECharacterState InPrevState, ECharacte
 	case ECharacterState::Chase:
 		break;
 	case ECharacterState::Hold:
-		break;
-	case ECharacterState::Smash:
 		break;
 	case ECharacterState::Hit:
 		break;

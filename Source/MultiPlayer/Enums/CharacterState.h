@@ -11,18 +11,21 @@ UENUM(BlueprintType)
 enum class ECharacterState : uint8
 {
 	//None,
-	Idle,
-	Wait,
-	Move,
-	Attack,
-	Defend,
-	Patrol,
-	Chase,
-	Hold,
-	Smash,
-	Hit,
-	Evation,
-	Death,
+	Idle,		// 유휴
+	Wait,		// 대기
+	Move,		// 움직임
+	Ambush,		// 기습
+	Attack,		// 공격
+	Cast,		// 시전
+	Defend,		// 방어
+	Patrol,		// 순찰
+	Chase,		// 추격
+	Retreat,	// 후퇴
+	Hold,		// 사수
+	Hit,		// 피격
+	Stun,		// 기절
+	Evation,	// 회피
+	Death,		// 죽음
 };
 
 UENUM(BlueprintType)
