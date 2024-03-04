@@ -36,9 +36,6 @@ FString UCharacterState::ToString(ECharacterState Value)
 	case ECharacterState::Hold:
 		str = L"Hold";
 		break;
-	case ECharacterState::Smash:
-		str = L"Smash";
-		break;
 	case ECharacterState::Hit:
 		str = L"Hit";
 		break;

@@ -16,6 +16,7 @@ public class MultiPlayer : ModuleRules
             "EnhancedInput",
 	    	"AIModule",
             "AnimGraphRuntime",
+			"UMG",
         });
         PublicIncludePaths.Add(ModuleDirectory);
 

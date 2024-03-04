@@ -32,8 +32,8 @@ AAIControllerBase::AAIControllerBase()
 void AAIControllerBase::BeginPlay()
 {
 	Super::BeginPlay();
-	DebugLog::Print("BeginPlay");
-	DebugLog::Print(Blackboard);
+	//DebugLog::Print("BeginPlay");
+	//DebugLog::Print(Blackboard);
 }
 
 void AAIControllerBase::Tick(float DeltaTime)
@@ -75,7 +75,7 @@ void AAIControllerBase::OnUnPossess()
 
 void AAIControllerBase::OnPerceptionUpdated(const TArray<AActor*>& UpdateActors)
 {
-	DebugLog::Print("OnPerceptionUpdated");
+	//DebugLog::Print("OnPerceptionUpdated");
 
 	//TArray<AActor*> actors;
 	//PerceptionComponent->GetCurrentlyPerceivedActors(nullptr, actors);
@@ -131,4 +131,9 @@ void AAIControllerBase::SetActionRange(float InActionRange)
 void AAIControllerBase::OnCharacterStateChanged(ECharacterState InPrevState, ECharacterState InNewState)
 {
 	Blackboard->SetValueAsEnum(TEXT("State"), (uint8)InNewState);
+}
+
+void AAIControllerBase::EnableDebugDrawing(bool InActive)
+{
+	bDrawDebug = InActive;
 }

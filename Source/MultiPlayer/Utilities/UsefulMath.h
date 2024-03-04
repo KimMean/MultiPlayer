@@ -15,4 +15,9 @@ public :
 	* return 0 ~ InWeights.Num() - 1;
 	*/
 	static int32 WeightedRandomIndex(TArray<float> InWeights);
+
+	/*
+	* 위치와 반지름을 받아 범위 내 무작위 위치를 반환합니다.
+	*/
+	static FVector GetRandomLocationWithinRange(FVector InLocation, float InRadius);
 };

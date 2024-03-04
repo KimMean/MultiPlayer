@@ -10,40 +10,40 @@ struct FCharacterStatus : public FTableRowBase
 
 public:
 	/* 닉네임 */
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	FString CharacterName;
+	UPROPERTY(EditDefaultsOnly)
+	FString CharacterName = "Character";
 
-	///* 레벨 */
-	//UPROPERTY(EditAnywhere)
-	//int32 Level;
+	/* 레벨 */
+	UPROPERTY(EditDefaultsOnly)
+	int32 Level = 1;
 
-	///* 경험치 */
-	//UPROPERTY(EditAnywhere)
-	//float Experience;
+	/* 경험치 */
+	UPROPERTY(EditDefaultsOnly)
+	float Experience = 1;
 
 	/* 체력 */
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int32 HealthPoint;
+	UPROPERTY(EditDefaultsOnly)
+	int32 HealthPoint = 1;
 
 	/* 마나 */
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int32 MagicPoint;
+	UPROPERTY(EditDefaultsOnly)
+	int32 MagicPoint = 1;
 
 	/* 힘 */
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int32 Strength = 10;
+	UPROPERTY(EditDefaultsOnly)
+	int32 Strength = 1;
 
 	/* 지능 */
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int32 Intelligence = 10;
+	UPROPERTY(EditDefaultsOnly)
+	int32 Intelligence = 1;
 
 	/* 물리 방어력 */
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int32 PhysicalDef = 10;
+	UPROPERTY(EditDefaultsOnly)
+	int32 PhysicalDefense = 1;
 
 	/* 마법 방어력 */
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int32 MagicDef = 10;
+	UPROPERTY(EditDefaultsOnly)
+	int32 MagicDefense = 1;
 };
 
 class MULTIPLAYER_API CharacterInformation
