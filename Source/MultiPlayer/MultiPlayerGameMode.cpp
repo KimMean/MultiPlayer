@@ -7,6 +7,8 @@
 #include "GameSetting/GameSession/GameSessionBase.h"
 #include "GameSetting/Spectator/SpectatorBase.h"
 
+#include "Datas/EnemyData/DataTable_TacticsWeight.h"
+
 #include "Utilities/DebugLog.h"
 
 AMultiPlayerGameMode::AMultiPlayerGameMode()
@@ -20,12 +22,22 @@ AMultiPlayerGameMode::AMultiPlayerGameMode()
 	SpectatorClass = ASpectatorBase::StaticClass();
 	ReplaySpectatorPlayerControllerClass = AControllerBase::StaticClass();
 	ServerStatReplicatorClass = AServerStatReplicator::StaticClass();
+
+
+	ConstructorHelpers::FObjectFinder<UDataTable> TacticalWeightsData(TEXT("/Script/Engine.DataTable'/Game/Blueprints/Enemies/Datas/DT_TacticalWeights.DT_TacticalWeights'"));
+	DT_TacticsWeight = TacticalWeightsData.Object;
+
+	ConstructorHelpers::FObjectFinder<UDataTable> enemyData(TEXT("/Script/Engine.DataTable'/Game/Blueprints/Enemies/Datas/DT_EnemyData.DT_EnemyData'"));
+	DT_EnemyStatus = enemyData.Object;
 }
 
 void AMultiPlayerGameMode::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
 {
 	DebugLog::Print("InitGame");
 	Super::InitGame(MapName, Options, ErrorMessage);
+
+	LoadTacticsWeightData();
+	LoadEnemyStatusData();
 }
 
 void AMultiPlayerGameMode::InitGameState()
@@ -68,4 +80,44 @@ void AMultiPlayerGameMode::Logout(AController* Exiting)
 void AMultiPlayerGameMode::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+
+const TArray<float> AMultiPlayerGameMode::GetTacticalWeights_Of_EnemyType(EEnemyType InEnemyType)
+{
+	return TacticalWeightsOfEnemyType[InEnemyType];
+}
+
+bool AMultiPlayerGameMode::ContainsEnemyStatus(FString InEnemyName)
+{
+	return EnemyStatus.Contains(InEnemyName);
+}
+
+const FCharacterStatus* AMultiPlayerGameMode::GetEnemyStatus(FString InEnemyName)
+{
+	return EnemyStatus[InEnemyName];
+}
+
+void AMultiPlayerGameMode::LoadTacticsWeightData()
+{
+	TArray<FTacticsWeightData*> datas;
+	DT_TacticsWeight->GetAllRows<FTacticsWeightData>("", datas);
+
+	for (const FTacticsWeightData* data : datas)
+	{
+		TArray<float> weights({ data->AttackWeight, data->DefendWeight, data->EvadeWeight });
+		TacticalWeightsOfEnemyType.Add(data->EnemyType, weights);
+	}
+}
+
+void AMultiPlayerGameMode::LoadEnemyStatusData()
+{
+	TArray<FCharacterStatus*> datas;
+	DT_EnemyStatus->GetAllRows<FCharacterStatus>("", datas);
+
+	for (FCharacterStatus* data : datas)
+	{
+		//FCharacterStatus status(*data);
+		EnemyStatus.Add(data->CharacterName, data);
+	}
 }

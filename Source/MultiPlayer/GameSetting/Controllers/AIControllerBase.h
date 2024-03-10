@@ -54,6 +54,8 @@ public :
 	float GetActionRange();
 	void SetActionRange(float InActionRange);
 
+	//void SetBlackboardTarget(ACharacter)
+
 public :
 	UFUNCTION()
 		virtual void OnCharacterStateChanged(ECharacterState InPrevState, ECharacterState InNewState);

@@ -30,6 +30,8 @@ protected:
 
 	/* This function is called by notify */
 	virtual void ExtraAttack() override;
-
 	// ~End Player Base Interface
+
+private :
+	void CreateWeapon();
 };

@@ -3,10 +3,13 @@
 #include "Components/TextBlock.h"
 #include "Components/ProgressBar.h"
 
+#include "Utilities/DebugLog.h"
 
-UEnemyInfoWidget::UEnemyInfoWidget(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer)
+
+void UEnemyInfoWidget::NativeConstruct()
 {
+	Super::NativeConstruct();
+	Text_Level = Cast<UTextBlock>(GetWidgetFromName(TEXT("Text_Level")));
 }
 
 void UEnemyInfoWidget::SetLevel(int32 InLevel)

@@ -9,7 +9,7 @@ UStatusComponent::UStatusComponent()
 void UStatusComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
+	SetMaxHealthPoint(CharacterStatus.HealthPoint);
 	CurrentHealthPoint = GetMaxHealthPoint();
 }
 
@@ -32,6 +32,11 @@ void UStatusComponent::AdjustCurrentHealthPoint(float InAdjustValue)
 
 	if (CurrentHealthPoint < 0)
 		CurrentHealthPoint = 0;
+
+	if (OnHealthPointChangedDelegate.IsBound())
+	{
+		OnHealthPointChangedDelegate.Execute();
+	}
 }
 
 const FString UStatusComponent::GetName()

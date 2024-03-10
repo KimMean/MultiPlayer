@@ -8,6 +8,7 @@
 #include "Components/Enemy/EnemyAnimationComponent.h"
 #include "Components/WidgetComponent.h"
 
+#include "MultiPlayerGameMode.h"
 #include "UserInterface/Enemies/EnemyInfoWidget.h"
 
 
@@ -27,29 +28,35 @@ AEnemyBase::AEnemyBase()
 	Widget = CreateDefaultSubobject<UWidgetComponent>(TEXT("WidgetComponent"));
 	Widget->SetupAttachment(GetMesh());
 	Widget->SetRelativeLocation(FVector(0, 0, 150));
-	//Widget->SetRelativeRotation(FRotator(0, 90, 0));
+	Widget->SetRelativeRotation(FRotator(0, 90, 0));
 	Widget->SetDrawSize(FVector2D(200, 50));
 
 	ConstructorHelpers::FClassFinder<UEnemyInfoWidget> widget(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/UI/Enemies/WB_EnemyInfo.WB_EnemyInfo_C'"));
 	Widget->SetWidgetClass(widget.Class);
 
-
-
 }
 
-void AEnemyBase::PostInitializeComponents()
-{
-	Super::PostInitializeComponents();
-}
 
 void AEnemyBase::BeginPlay()
 {
 	Super::BeginPlay();
 
+	AMultiPlayerGameMode* gameMode = Cast<AMultiPlayerGameMode>(GetWorld()->GetAuthGameMode());
+	if (gameMode->ContainsEnemyStatus(EnemyName))
+		CharacterStatus->SetCharacterStatus(*gameMode->GetEnemyStatus(EnemyName));
+	else
+		DebugLog::Print(EnemyName + " is Not Contains");
+
 	//State->OnEnemyStateTypeChanged.AddDynamic(this, &AEnemyBase::OnEnemyStateChanged);
 	if(Widget)
+	{
 		Widget->InitWidget();
+		Cast<UEnemyInfoWidget>(Widget->GetWidget())->SetLevel(CharacterStatus->GetLevel());
+		Cast<UEnemyInfoWidget>(Widget->GetWidget())->SetName(CharacterStatus->GetName());
+	}
+
 	DebugLog::Print(GetGenericTeamId());
+
 }
 
 void AEnemyBase::Tick(float DeltaSeconds)
@@ -93,16 +100,6 @@ EEnemyType AEnemyBase::GetEnemyTacticsType()
 	return EnemyTacticsType;
 }
 
-bool AEnemyBase::IsEnemyHasWeaponOnTheType(EWeaponType InWeaponType)
-{
-	return Weapons.Contains(InWeaponType);
-}
-
-TObjectPtr<AWeaponBase> AEnemyBase::GetEnemyWeaponOfWeaponType(EWeaponType InWeaponType)
-{
-	return Weapons[InWeaponType];
-}
-
 void AEnemyBase::SetSenseConfigSight_SightRadius(float InRadius)
 {
 	Cast<AAIControllerBase>(GetController())->SetSenseConfigSight_SightRadius(InRadius);
@@ -116,4 +113,9 @@ void AEnemyBase::SetSenseConfigSight_LoseSightRadius(float InRadius)
 void AEnemyBase::SetActionRange(float InActionRange)
 {
 	Cast<AAIControllerBase>(GetController())->SetActionRange(InActionRange);
+}
+
+void AEnemyBase::OnHealthPointChanged()
+{
+	Cast<UEnemyInfoWidget>(Widget->GetWidget())->ModifyHealthPointPercent(CharacterStatus->GetCurrentHealthPoint(), CharacterStatus->GetMaxHealthPoint());
 }

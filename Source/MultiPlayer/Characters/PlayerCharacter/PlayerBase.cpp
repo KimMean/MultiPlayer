@@ -6,12 +6,20 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputMappingContext.h"
 #include "Camera/CameraComponent.h"
+//#include "Blueprint/UserWidget.h"
+
+#include "Components/AnimationComponent.h"
+#include "UserInterface/Player/GameUI.h"
 
 #include "Utilities/DebugLog.h"
 
 APlayerBase::APlayerBase()
 {
 	Tags.Add(TEXT("Player"));
+
+	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
+	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	//HPWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("HealthWidget"));
 
 	ConstructorHelpers::FObjectFinder<USkeletalMesh> mesh(TEXT("SkeletalMesh'/Game/Characters/Mannequins/Meshes/SKM_Manny.SKM_Manny'"));
 
@@ -21,25 +29,23 @@ APlayerBase::APlayerBase()
 		GetMesh()->SetRelativeLocation(FVector(0, 0, -90));
 	}
 
-	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
-	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	SpringArm->SetupAttachment(RootComponent);
+	Camera->SetupAttachment(SpringArm);
 
-	{
-		SpringArm->SetupAttachment(RootComponent);
-		Camera->SetupAttachment(SpringArm);
+	SpringArm->TargetArmLength = 300.0f;
+	SpringArm->SocketOffset.Z = 150.0f;
+	SpringArm->bUsePawnControlRotation = true;
+	SpringArm->bInheritPitch = true;
+	SpringArm->bInheritRoll = true;
+	SpringArm->bInheritYaw = true;
+	SpringArm->bDoCollisionTest = true;
 
-		SpringArm->TargetArmLength = 300.0f;
-		SpringArm->SocketOffset.Z = 150.0f;
-		SpringArm->bUsePawnControlRotation = true;
-		SpringArm->bInheritPitch = true;
-		SpringArm->bInheritRoll = true;
-		SpringArm->bInheritYaw = true;
-		SpringArm->bDoCollisionTest = true;
+	Camera->AddRelativeRotation(FRotator(-10.0f, 0.0f, 0.0f));
 
-		Camera->AddRelativeRotation(FRotator(-10.0f, 0.0f, 0.0f));
+	bUseControllerRotationYaw = true;
 
-		bUseControllerRotationYaw = true;
-	}
+	ConstructorHelpers::FClassFinder<UGameUI> ui(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/UI/Player/WB_InGame.WB_InGame_C'"));
+	GameWidgetClass = ui.Class;
 }
 
 void APlayerBase::BeginPlay()
@@ -57,6 +63,13 @@ void APlayerBase::BeginPlay()
 		}
 	}
 	
+	GameWidget = CreateWidget<UGameUI>(GetController<APlayerController>(), GameWidgetClass);
+	if (GameWidget)
+	{
+		GameWidget->Initialize();
+		GameWidget->AddToViewport();
+		GameWidget->ModifyHealthPointPercent(1.0f);
+	}
 }
 
 void APlayerBase::Tick(float DeltaSeconds)
@@ -126,6 +139,13 @@ void APlayerBase::OnAttack()
 	// Empty
 }
 
+void APlayerBase::OnHit()
+{
+	Super::OnHit();
+	if (CharacterState->GetIsHitMode())
+		Animation->PlayAnimMontage(ECharacterState::Hit);
+}
+
 void APlayerBase::ExtraAttack()
 {
 	// Empty
@@ -165,4 +185,11 @@ void APlayerBase::OnCharacterStateChanged(ECharacterState InPrevState, ECharacte
 		break;
 	}
 }
+
+void APlayerBase::OnHealthPointChanged()
+{
+	Super::OnHealthPointChanged();
+	GameWidget->ModifyHealthPointPercent(CharacterStatus->GetCurrentHealthPoint(), CharacterStatus->GetMaxHealthPoint());
+}
+
 

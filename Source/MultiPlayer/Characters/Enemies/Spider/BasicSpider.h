@@ -18,12 +18,15 @@ class MULTIPLAYER_API ABasicSpider : public ASpiderBase
 public:
 	ABasicSpider();
 
-	//~ Begin ASpiderBase Interface.
-	virtual void PostInitializeComponents() override;
-	//~ End ASpiderBase Interface.
 
 protected:
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaSeconds) override;
+
+
+private:
+	void CreateWeaponCollider();
+
+
 };
