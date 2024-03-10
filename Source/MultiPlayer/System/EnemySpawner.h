@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "EnemySpawner.generated.h"
 
+class UShapeComponentVisualizer;
+
 UCLASS()
 class MULTIPLAYER_API AEnemySpawner : public AActor
 {
@@ -22,5 +24,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+protected :
+	UPROPERTY(VisibleAnywhere, Category = "ShapeProperty")
+		TObjectPtr<UShapeComponentVisualizer> ShapeComponent;
 
 };

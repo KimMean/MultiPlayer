@@ -3,12 +3,16 @@
 
 #include "System/EnemySpawner.h"
 
+#include "System/Visualizers/ShapeComponentVisualizer.h"
+
 // Sets default values
 AEnemySpawner::AEnemySpawner()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	ShapeComponent = CreateDefaultSubobject<UShapeComponentVisualizer>(TEXT("ShapeComponent"));
+	
 }
 
 // Called when the game starts or when spawned
