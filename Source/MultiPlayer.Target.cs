@@ -11,5 +11,10 @@ public class MultiPlayerTarget : TargetRules
 		DefaultBuildSettings = BuildSettingsVersion.V4;
 		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_3;
 		ExtraModuleNames.Add("MultiPlayer");
-	}
+
+        if (bBuildEditor)   // 편집기 빌드에만 포함
+        {
+            ExtraModuleNames.Add("MultiPlayerEditor");
+        }
+    }
 }

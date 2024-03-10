@@ -8,8 +8,11 @@ public class MultiPlayerEditorTarget : TargetRules
 	public MultiPlayerEditorTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
-        DefaultBuildSettings = BuildSettingsVersion.V4;
-        IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_3;
-        ExtraModuleNames.Add("MultiPlayer");
+		DefaultBuildSettings = BuildSettingsVersion.V4;
+		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_3;
+        ExtraModuleNames.AddRange(new string[] 
+		{ 
+			"MultiPlayerEditor" 
+		});
 	}
 }
