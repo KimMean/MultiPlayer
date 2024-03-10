@@ -39,9 +39,9 @@ void ABossSpider::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 }
 
-void ABossSpider::AbilityActivation(ECharacterState InCharacterState)
+void ABossSpider::StatusNotification(ECharacterState InCharacterState)
 {
-	Super::AbilityActivation(InCharacterState);
+	Super::StatusNotification(InCharacterState);
 
 	switch (InCharacterState)
 	{
@@ -59,9 +59,9 @@ void ABossSpider::AbilityActivation(ECharacterState InCharacterState)
 	}
 }
 
-void ABossSpider::MaintainAbility(ECharacterState InCharacterState)
+void ABossSpider::PersistentStatusNotification(ECharacterState InCharacterState)
 {
-	Super::MaintainAbility(InCharacterState);
+	Super::PersistentStatusNotification(InCharacterState);
 
 	switch (InCharacterState)
 	{
@@ -122,8 +122,6 @@ void ABossSpider::ChargeTowardTargetPosition()
 	FVector direction = TargetLocation - GetActorLocation();
 	FVector moveDelta = direction.GetSafeNormal() * GetCharacterMovement()->GetMaxSpeed() * 2.0f * GetWorld()->GetDeltaSeconds();
 	SetActorLocation(GetActorLocation() + moveDelta);
-
-
 }
 
 void ABossSpider::CreateWeaponCollider()

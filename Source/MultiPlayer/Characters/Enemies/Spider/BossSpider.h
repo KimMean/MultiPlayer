@@ -18,9 +18,9 @@ protected:
 	virtual void Tick(float DeltaSeconds) override;
 
 public :
-	virtual void AbilityActivation(ECharacterState InCharacterState) override;
+	virtual void StatusNotification(ECharacterState InCharacterState) override;
 
-	virtual void MaintainAbility(ECharacterState InCharacterState) override;
+	virtual void PersistentStatusNotification(ECharacterState InCharacterState) override;
 
 private :
 	/* Causes an earthquake, damaging enemies within the range. */
@@ -31,7 +31,6 @@ private :
 	void SummonSpider();
 
 	void ChargeTowardTargetPosition();
-
 
 private :
 	void CreateWeaponCollider();

@@ -24,14 +24,7 @@ void AWarrior::BeginPlay()
 {
 	Super::BeginPlay();
 
-	TObjectPtr<UClass> sword = LoadClass<ASwordBase>(NULL, TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Weapons/Swords/BP_SwordBase.BP_SwordBase_C'"));
-	
-	const USkeletalMeshSocket* socket = GetMesh()->GetSocketByName("Weapon");
-	FTransform transform = socket->GetSocketTransform(GetMesh());
-	
-	Weapon = GetWorld()->SpawnActorDeferred<ASwordBase>(sword, transform, this, this, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
-	socket->AttachActor(Weapon, GetMesh());
-	Weapon->FinishSpawning(transform);
+	CreateWeapon();
 }
 
 void AWarrior::Tick(float DeltaSeconds)
@@ -68,6 +61,20 @@ void AWarrior::ExtraAttack()
 
 	bComboAttack = false;
 	Animation->PlayAnimMontageByIndex(ECharacterState::Attack, ComboCount);
+
+}
+
+void AWarrior::CreateWeapon()
+{
+	TObjectPtr<UClass> sword = LoadClass<ASwordBase>(NULL, TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Weapons/Swords/BP_SwordBase.BP_SwordBase_C'"));
+
+	const USkeletalMeshSocket* socket = GetMesh()->GetSocketByName("Weapon");
+	FTransform transform = socket->GetSocketTransform(GetMesh());
+
+	TObjectPtr<AWeaponBase> weapon = GetWorld()->SpawnActorDeferred<ASwordBase>(sword, transform, this, this, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+	socket->AttachActor(weapon, GetMesh());
+	weapon->FinishSpawning(transform);
+	Weapons.Add(EWeaponType::OneHandSword, weapon);
 
 }
 

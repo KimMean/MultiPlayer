@@ -13,7 +13,7 @@ class MULTIPLAYER_API UEnemyInfoWidget : public UUserWidget
 	GENERATED_BODY()
 
 public :
-	UEnemyInfoWidget(const FObjectInitializer& ObjectInitializer);
+	virtual void NativeConstruct() override;
 
 public :
 	/* Set Enemy Level */
@@ -27,6 +27,7 @@ public :
 	void ModifyHealthPointPercent(float InCurValue, float InMaxValue);
 
 
+protected :
 	/* Enemy Level */
 	UPROPERTY(meta = (BindWidget))
 		TObjectPtr<UTextBlock> Text_Level;

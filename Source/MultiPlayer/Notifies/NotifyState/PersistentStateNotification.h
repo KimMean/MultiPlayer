@@ -1,14 +1,15 @@
+
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Animation/AnimNotifies/AnimNotifyState.h"
 #include "Enums/CharacterState.h"
-#include "MaintainAbilityByState.generated.h"
+#include "PersistentStateNotification.generated.h"
 
 class ACharacterBase;
 
 UCLASS()
-class MULTIPLAYER_API UMaintainAbilityByState : public UAnimNotifyState
+class MULTIPLAYER_API UPersistentStateNotification : public UAnimNotifyState
 {
 	GENERATED_BODY()
 
@@ -26,8 +27,7 @@ public:
 	UPROPERTY(EditAnywhere)
 		float Interval;
 
-private :
+private:
 	TObjectPtr<ACharacterBase> character;
 	float TickTimer;
-
 };

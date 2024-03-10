@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimNotifies/AnimNotifyState.h"
+#include "Enums/WeaponType.h"
 #include "SetWeaponCollisionEnabled.generated.h"
 
 /**
@@ -21,4 +22,7 @@ public :
 	virtual void NotifyEnd(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference);
 	// ~End UAnimNotifyState Interface
 
+protected :
+	UPROPERTY(EditAnywhere)
+		EWeaponType WeaponType;
 };

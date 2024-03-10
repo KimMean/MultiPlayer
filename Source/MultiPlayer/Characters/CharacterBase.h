@@ -6,6 +6,7 @@
 #include "Enums/AttackType.h"
 #include "Enums/CharacterState.h"
 #include "Enums/DirectionState.h"
+#include "Enums/WeaponType.h"
 #include "CharacterInformation.h"
 #include "Components/StateComponent.h"
 #include "Components/StatusComponent.h"
@@ -59,17 +60,34 @@ public :
 public :
 	UFUNCTION()
 		virtual void OnCharacterStateChanged(ECharacterState InPrevState, ECharacterState InNewState);
+	/* HealthPoint Changed Delegate in UStatusComponent */
+	virtual void OnHealthPointChanged();
 
 public :
 	/* Run with Animation Notify */
-	virtual void AbilityActivation(ECharacterState InCharacterState);
+	virtual void StatusNotification(ECharacterState InCharacterState);
 
 	/* Run with Animation Notify State */
-	virtual void MaintainAbility(ECharacterState InCharacterState);
+	virtual void PersistentStatusNotification(ECharacterState InCharacterState);
+
+	/* Called when hit */
+	virtual void OnHit();
+
+public:
+	// Weapons
+	void SetWeaponCollisionEnable(EWeaponType InWeaponType, bool InEnable);
+	/* Check if you have a weapon matching your weapon type */
+	bool IsCharacterHasWeaponOnTheType(EWeaponType InWeaponType);
+	/* Get a weapon that matches your weapon type. */
+	TObjectPtr<AWeaponBase> GetCharacterWeaponOfWeaponType(EWeaponType InWeaponType);
+
+protected :
+	virtual void AdjustHealthPoint(float InAdjustValue);
 
 protected :
 	/* Weapon */
-	TObjectPtr<AWeaponBase> Weapon = nullptr;
+	UPROPERTY(VisibleDefaultsOnly)
+		TMap<EWeaponType, TObjectPtr<AWeaponBase>> Weapons;
 
 protected:
 	/* Character State Component */
@@ -86,4 +104,5 @@ protected:
 	/* Generic Team Agent Interface */
 	UPROPERTY(VisibleDefaultsOnly, Category = "Character|TeamID")
 		FGenericTeamId GenericTeamID;
+
 };
