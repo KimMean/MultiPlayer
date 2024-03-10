@@ -6,10 +6,6 @@ ASpiderBase::ASpiderBase()
 {
 }
 
-void ASpiderBase::PostInitializeComponents()
-{
-	Super::PostInitializeComponents();
-}
 
 void ASpiderBase::BeginPlay()
 {

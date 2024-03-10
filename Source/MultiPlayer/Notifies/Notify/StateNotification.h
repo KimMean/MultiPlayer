@@ -1,12 +1,13 @@
+
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Animation/AnimNotifies/AnimNotify.h"
 #include "Enums/CharacterState.h"
-#include "AbilityActivationByState.generated.h"
+#include "StateNotification.generated.h"
 
 UCLASS()
-class MULTIPLAYER_API UAbilityActivationByState : public UAnimNotify
+class MULTIPLAYER_API UStateNotification : public UAnimNotify
 {
 	GENERATED_BODY()
 

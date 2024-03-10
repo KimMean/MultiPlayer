@@ -8,6 +8,8 @@ class USpringArmComponent;
 class UCameraComponent;
 class UInputMappingContext;
 class UInputAction;
+//class UWidgetComponent;
+class UGameUI;
 
 class AWeaponBase;
 
@@ -53,13 +55,16 @@ public:
 protected :
 	/* Attacks when you click the left mouse button. */
 	virtual void OnAttack();
-
+	/* Called when hit */
+	virtual void OnHit() override;
 public :
 	/* This function is called by notify */
 	virtual void ExtraAttack();
 
 public :
 	virtual void OnCharacterStateChanged(ECharacterState InPrevState, ECharacterState InNewState) override;
+
+	virtual void OnHealthPointChanged() override;
 
 protected:
 	/* Spring Arm Component */
@@ -78,6 +83,12 @@ protected :
 	/* Player Input Action */
 	UPROPERTY(EditAnywhere, Category = "Input")
 		TMap<FString, TObjectPtr<UInputAction>> InputActions;
+
+protected :	//Widget
+	UPROPERTY(VisibleDefaultsOnly)
+		TSubclassOf<UGameUI> GameWidgetClass;
+	UPROPERTY(VisibleDefaultsOnly)
+		TObjectPtr<UGameUI> GameWidget;
 
 
 protected:

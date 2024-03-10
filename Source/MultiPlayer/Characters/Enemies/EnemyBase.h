@@ -2,8 +2,6 @@
 
 #include "CoreMinimal.h"
 #include "Characters/CharacterBase.h"
-#include "Actors/Weapons/WeaponBase.h"
-#include "Enums/WeaponType.h"
 #include "EnemyBase.generated.h"
 
 class AAIControllerBase;
@@ -44,10 +42,6 @@ class MULTIPLAYER_API AEnemyBase : public ACharacterBase
 public :
 	AEnemyBase();
 
-	//~ Begin ACharacter Interface.
-	virtual void PostInitializeComponents() override;
-	//~ End ACharacter Interface.
-
 protected :
 	virtual void BeginPlay() override;
 
@@ -62,12 +56,6 @@ public :
 	EEnemyType GetEnemyTacticsType();
 
 
-public :
-	/* Check if you have a weapon matching your weapon type */
-	bool IsEnemyHasWeaponOnTheType(EWeaponType InWeaponType);
-	/* Get a weapon that matches your weapon type. */
-	TObjectPtr<AWeaponBase> GetEnemyWeaponOfWeaponType(EWeaponType InWeaponType);
-
 protected:
 	/* Set AIController Sight Radius */
 	void SetSenseConfigSight_SightRadius(float InRadius);
@@ -75,6 +63,9 @@ protected:
 	void SetSenseConfigSight_LoseSightRadius(float InRadius);
 	/* Set AIController Action Range */
 	void SetActionRange(float InActionRange);
+
+public :
+	virtual void OnHealthPointChanged() override;
 
 protected:
 	/* AI Controller */
@@ -89,11 +80,13 @@ protected:
 	UPROPERTY(VisibleDefaultsOnly)
 		TObjectPtr<UWidgetComponent> Widget;
 
-	UPROPERTY(VisibleDefaultsOnly)
-		TMap<EWeaponType, TObjectPtr<AWeaponBase>> Weapons;
 
 
-protected :
+protected:
+	/* It must match the data table. */
+	UPROPERTY(EditDefaultsOnly, Category = "Enemy|Property")
+		FString EnemyName = "Unknown";
+
 	/* Monster Class Type */
 	UPROPERTY(VisibleDefaultsOnly, Category = "Enemy|Property")
 		EEnemyClass EnemyClassType;
@@ -101,7 +94,5 @@ protected :
 	/* 몬스터의 전술 타입 */
 	UPROPERTY(VisibleDefaultsOnly, Category = "Enemy|Property")
 		EEnemyType EnemyTacticsType;
-
-
 
 };

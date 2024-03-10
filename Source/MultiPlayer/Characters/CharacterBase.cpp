@@ -1,8 +1,10 @@
 #include "Characters/CharacterBase.h"
 
 #include "Kismet/KismetMathLibrary.h"
+#include "Kismet/GameplayStatics.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
+#include "Actors/Weapons/WeaponBase.h"
 #include "Components/StateComponent.h"
 #include "Components/StatusComponent.h"
 #include "Components/AnimationComponent.h"
@@ -19,7 +21,7 @@ ACharacterBase::ACharacterBase()
 	CharacterStatus = CreateDefaultSubobject<UStatusComponent>(TEXT("StatusComponent"));
 
 	FCharacterStatus status;
-	status.HealthPoint = 10000;
+	status.HealthPoint = 100;
 	CharacterStatus->SetCharacterStatus(status);
 
 	GetMesh()->SetRelativeRotation(FRotator(0, -90, 0));
@@ -29,7 +31,14 @@ void ACharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	//UGameplayStatics::GetGameInstance(GetWorld());
+	//Cast<GameInstanceBase> GetWorld()->GetGameInstance()
+
 	CharacterState->CharacterStateChangedDelegate.AddDynamic(this, &ACharacterBase::OnCharacterStateChanged);
+
+	CharacterStatus->OnHealthPointChangedDelegate.BindUObject(this, &ACharacterBase::OnHealthPointChanged);
+	// BindUFunction은 UFUNCTION() 이 있어야 한다.
+	//CharacterStatus->OnHealthPointChangedDelegate.BindUFunction(this, FName("OnHealthPointChanged"));
 }
 
 void ACharacterBase::Tick(float DeltaSeconds)
@@ -69,10 +78,16 @@ float ACharacterBase::TakeDamage(float Damage, FDamageEvent const& DamageEvent, 
 {
 	if (CharacterState->GetIsDeathMode()) return 0;
 
-	CharacterStatus->AdjustCurrentHealthPoint(-Damage);
+	AdjustHealthPoint(-Damage);
 
 	if (CharacterStatus->GetCurrentHealthPoint() == 0)
+	{
 		CharacterState->SetDeathMode();
+	}
+	else
+	{
+		OnHit();
+	}
 
 	return Damage;
 }
@@ -93,10 +108,42 @@ void ACharacterBase::OnCharacterStateChanged(ECharacterState InPrevState, EChara
 	//DebugLog::Print(UCharacterState::ToString(InNewState));
 }
 
-void ACharacterBase::AbilityActivation(ECharacterState InCharacterState)
+void ACharacterBase::OnHealthPointChanged()
+{
+	DebugLog::Print("OnHealthPointChanged");
+}
+
+void ACharacterBase::StatusNotification(ECharacterState InCharacterState)
 {
 }
 
-void ACharacterBase::MaintainAbility(ECharacterState InCharacterState)
+void ACharacterBase::PersistentStatusNotification(ECharacterState InCharacterState)
 {
+}
+
+void ACharacterBase::OnHit()
+{
+	if (CharacterState->GetIsIdleMode())
+		CharacterState->SetHitMode();
+}
+
+void ACharacterBase::SetWeaponCollisionEnable(EWeaponType InWeaponType, bool InEnable)
+{
+	if(IsCharacterHasWeaponOnTheType(InWeaponType))
+		Weapons[InWeaponType]->SetCollisionEnabled(InEnable);
+}
+
+bool ACharacterBase::IsCharacterHasWeaponOnTheType(EWeaponType InWeaponType)
+{
+	return Weapons.Contains(InWeaponType);
+}
+
+TObjectPtr<AWeaponBase> ACharacterBase::GetCharacterWeaponOfWeaponType(EWeaponType InWeaponType)
+{
+	return Weapons[InWeaponType];
+}
+
+void ACharacterBase::AdjustHealthPoint(float InAdjustValue)
+{
+	CharacterStatus->AdjustCurrentHealthPoint(InAdjustValue);
 }

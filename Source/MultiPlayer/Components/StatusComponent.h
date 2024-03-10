@@ -15,6 +15,8 @@
 //int32 PhysicalDef = 10;
 //int32 MagicDef = 10;
 
+DECLARE_DELEGATE(FSingleDel_HealthPointChanged);
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class MULTIPLAYER_API UStatusComponent : public UActorComponent
 {
@@ -73,6 +75,8 @@ public :
 	void SetPhysicalDefense(int32 InCharacterPhysicalDefense);
 	void SetMagicDefense(int32 InCharacterMagicDefense);
 
+public :
+	FSingleDel_HealthPointChanged OnHealthPointChangedDelegate;
 
 private :
 	UPROPERTY(VisibleAnywhere)
@@ -82,4 +86,6 @@ private :
 		float CurrentHealthPoint;
 	UPROPERTY(VisibleAnywhere)
 		float CurrentMagicPoint;
+
+	
 };

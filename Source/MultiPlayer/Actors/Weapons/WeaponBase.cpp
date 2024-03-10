@@ -23,7 +23,7 @@ void AWeaponBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Collision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	SetCollisionEnabled(false);
 
 	Collision->OnComponentBeginOverlap.AddDynamic(this, &AWeaponBase::OnComponentBeginOverlap);
 	Collision->OnComponentEndOverlap.AddDynamic(this, &AWeaponBase::OnComponentEndOverlap);
