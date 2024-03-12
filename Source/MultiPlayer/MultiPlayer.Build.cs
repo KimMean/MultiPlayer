@@ -1,4 +1,5 @@
 using UnrealBuildTool;
+using UnrealBuildTool.Rules;
 
 public class MultiPlayer : ModuleRules
 {
@@ -17,6 +18,7 @@ public class MultiPlayer : ModuleRules
 	    	"AIModule",
             "AnimGraphRuntime",
 			"UMG",
+            "NavigationSystem",
         });
         PublicIncludePaths.Add(ModuleDirectory);
 

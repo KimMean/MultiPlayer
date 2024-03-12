@@ -72,6 +72,7 @@ public :
 
 	/* Called when hit */
 	virtual void OnHit();
+	virtual void OnDeath();
 
 public:
 	// Weapons

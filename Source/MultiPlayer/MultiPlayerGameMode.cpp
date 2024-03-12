@@ -33,7 +33,7 @@ AMultiPlayerGameMode::AMultiPlayerGameMode()
 
 void AMultiPlayerGameMode::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
 {
-	DebugLog::Print("InitGame");
+	DebugLog::Print("GameMode : InitGame");
 	Super::InitGame(MapName, Options, ErrorMessage);
 
 	LoadTacticsWeightData();
@@ -42,38 +42,38 @@ void AMultiPlayerGameMode::InitGame(const FString& MapName, const FString& Optio
 
 void AMultiPlayerGameMode::InitGameState()
 {
-	DebugLog::Print("InitGameState");
+	DebugLog::Print("GameMode : InitGameState");
 	Super::InitGameState();
 }
 
 void AMultiPlayerGameMode::PreLogin(const FString& Options, const FString& Address, const FUniqueNetIdRepl& UniqueId, FString& ErrorMessage)
 {
-	DebugLog::Print("PreLogin");
+	DebugLog::Print("GameMode : PreLogin");
 	Super::PreLogin(Options, Address, UniqueId, ErrorMessage);
 }
 
 APlayerController* AMultiPlayerGameMode::Login(UPlayer* NewPlayer, ENetRole InRemoteRole, const FString& Portal, const FString& Options, const FUniqueNetIdRepl& UniqueId, FString& ErrorMessage)
 {
-	DebugLog::Print("Login");
+	DebugLog::Print("GameMode : Login");
 	return Super::Login(NewPlayer, InRemoteRole, Portal, Options, UniqueId, ErrorMessage);
 }
 
 void AMultiPlayerGameMode::PostLogin(APlayerController* NewPlayer)
 {
-	DebugLog::Print("PostLogin");
+	DebugLog::Print("GameMode : PostLogin");
 	Super::PostLogin(NewPlayer);
 }
 
 void AMultiPlayerGameMode::OnPostLogin(AController* NewPlayer)
 {
-	DebugLog::Print("OnPostLogin");
+	DebugLog::Print("GameMode : OnPostLogin");
 	Super::OnPostLogin(NewPlayer);
 }
 
 
 void AMultiPlayerGameMode::Logout(AController* Exiting)
 {
-	DebugLog::Print("Logout");
+	DebugLog::Print("GameMode : Logout");
 	Super::Logout(Exiting);
 }
 

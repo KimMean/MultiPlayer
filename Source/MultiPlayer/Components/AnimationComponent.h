@@ -24,6 +24,7 @@ public:
 	void PlayAnimMontage(ECharacterState InState);
 	void PlayAnimMontageByIndex(ECharacterState InState, int InIndex);
 	void PlayAnimMontageByRandom(ECharacterState InState);
+	void StopAnimMontage();
 
 private :
 	void PlayAnimMontage(TObjectPtr<UAnimMontage> InMontage);

@@ -8,10 +8,10 @@
 
 ABasicSpider::ABasicSpider()
 {
-	GetCapsuleComponent()->SetCapsuleHalfHeight(60);
+	GetCapsuleComponent()->SetCapsuleHalfHeight(90);
 	GetCapsuleComponent()->SetCapsuleRadius(60);
 
-	GetMesh()->SetRelativeLocation(FVector(0, 0, -60));
+	GetMesh()->SetRelativeLocation(FVector(0, 0, -90));
 
 	ConstructorHelpers::FObjectFinder<USkeletalMesh> mesh(L"/Script/Engine.SkeletalMesh'/Game/InfinityBladeAdversaries/Enemy/Enemy_Spiderling/SK_Spiderling.SK_Spiderling'");
 	GetMesh()->SetSkeletalMesh(mesh.Object);
