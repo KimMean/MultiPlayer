@@ -132,6 +132,7 @@ const ECharacterState UStateComponent::GetCharacterState()
 void UStateComponent::SetCharacterState(ECharacterState InState)
 {
 	if (CharacterState == InState) return;
+	if (CharacterState == ECharacterState::Death) return;
 
 	ECharacterState prevState = CharacterState;
 	CharacterState = InState;

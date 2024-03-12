@@ -82,7 +82,7 @@ float ACharacterBase::TakeDamage(float Damage, FDamageEvent const& DamageEvent, 
 
 	if (CharacterStatus->GetCurrentHealthPoint() == 0)
 	{
-		CharacterState->SetDeathMode();
+		OnDeath();
 	}
 	else
 	{
@@ -125,6 +125,13 @@ void ACharacterBase::OnHit()
 {
 	if (CharacterState->GetIsIdleMode())
 		CharacterState->SetHitMode();
+}
+
+void ACharacterBase::OnDeath()
+{
+	CharacterState->SetDeathMode();
+	Animation->StopAnimMontage();
+	Animation->PlayAnimMontage(ECharacterState::Death);
 }
 
 void ACharacterBase::SetWeaponCollisionEnable(EWeaponType InWeaponType, bool InEnable)
