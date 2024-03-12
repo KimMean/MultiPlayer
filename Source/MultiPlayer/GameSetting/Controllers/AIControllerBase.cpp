@@ -131,6 +131,9 @@ void AAIControllerBase::SetActionRange(float InActionRange)
 void AAIControllerBase::OnCharacterStateChanged(ECharacterState InPrevState, ECharacterState InNewState)
 {
 	Blackboard->SetValueAsEnum(TEXT("State"), (uint8)InNewState);
+
+	if (InNewState == ECharacterState::Death)
+		OnUnPossess();
 }
 
 void AAIControllerBase::EnableDebugDrawing(bool InActive)

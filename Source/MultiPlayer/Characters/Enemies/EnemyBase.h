@@ -67,6 +67,8 @@ protected:
 public :
 	virtual void OnHealthPointChanged() override;
 
+	virtual void OnCharacterStateChanged(ECharacterState InPrevState, ECharacterState InNewState) override;
+
 protected:
 	/* AI Controller */
 	UPROPERTY(VisibleDefaultsOnly, Category = "Enemy|AI|Controller")

@@ -23,6 +23,7 @@ AEnemyBase::AEnemyBase()
 
 	AIController = AAIControllerBase::StaticClass();
 	AIControllerClass = AIController;
+	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 
 	// Boss 클래스의 적은 위젯을 만들지 않는다.
 	Widget = CreateDefaultSubobject<UWidgetComponent>(TEXT("WidgetComponent"));
@@ -54,9 +55,6 @@ void AEnemyBase::BeginPlay()
 		Cast<UEnemyInfoWidget>(Widget->GetWidget())->SetLevel(CharacterStatus->GetLevel());
 		Cast<UEnemyInfoWidget>(Widget->GetWidget())->SetName(CharacterStatus->GetName());
 	}
-
-	DebugLog::Print(GetGenericTeamId());
-
 }
 
 void AEnemyBase::Tick(float DeltaSeconds)
@@ -118,4 +116,14 @@ void AEnemyBase::SetActionRange(float InActionRange)
 void AEnemyBase::OnHealthPointChanged()
 {
 	Cast<UEnemyInfoWidget>(Widget->GetWidget())->ModifyHealthPointPercent(CharacterStatus->GetCurrentHealthPoint(), CharacterStatus->GetMaxHealthPoint());
+}
+
+void AEnemyBase::OnCharacterStateChanged(ECharacterState InPrevState, ECharacterState InNewState)
+{
+	Super::OnCharacterStateChanged(InPrevState, InNewState);
+
+	if (InNewState == ECharacterState::Death)
+	{
+		DebugLog::Print("Death");
+	}
 }

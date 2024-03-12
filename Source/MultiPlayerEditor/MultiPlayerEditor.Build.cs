@@ -9,19 +9,16 @@ public class MultiPlayerEditor : ModuleRules
 		PublicDependencyModuleNames.AddRange(new string[]
         {
             "Core",
-            "MultiPlayer",
-        });
-        PrivateDependencyModuleNames.AddRange(new string[]
-        {
             "CoreUObject",
             "Engine",
             "UnrealEd",
-            "ComponentVisualizers"
+            "ComponentVisualizers",
+            "MultiPlayer",
         });
         //PublicIncludePaths.Add(ModuleDirectory);
 
         PrivateIncludePaths.AddRange(new string[]
-		{
+        {
             "MultiPlayerEditor"
         });
 	}

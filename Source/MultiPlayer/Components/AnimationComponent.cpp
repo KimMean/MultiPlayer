@@ -47,6 +47,12 @@ void UAnimationComponent::PlayAnimMontageByRandom(ECharacterState InState)
 	PlayAnimMontage(AnimDatas->GetAnimationMontageRandomData(InState));
 }
 
+void UAnimationComponent::StopAnimMontage()
+{
+	ACharacterBase* character = Cast<ACharacterBase>(GetOwner());
+	character->StopAnimMontage();
+}
+
 void UAnimationComponent::PlayAnimMontage(TObjectPtr<UAnimMontage> InMontage)
 {
 	ACharacterBase* character = Cast<ACharacterBase>(GetOwner());
