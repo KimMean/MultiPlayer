@@ -27,6 +27,7 @@ void AControllerBase::BeginPlay()
 			}
 		}
 	}
+	SetShowMouseCursor(true);
 }
 
 void AControllerBase::JoinServer()
