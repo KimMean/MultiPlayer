@@ -127,3 +127,11 @@ void AEnemyBase::OnCharacterStateChanged(ECharacterState InPrevState, ECharacter
 		DebugLog::Print("Death");
 	}
 }
+
+void AEnemyBase::OnDeath()
+{
+	Super::OnDeath();
+	Widget->SetVisibility(false);
+	//GetController()->Destroy();
+	//Destroy();
+}

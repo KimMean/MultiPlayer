@@ -133,7 +133,10 @@ void AAIControllerBase::OnCharacterStateChanged(ECharacterState InPrevState, ECh
 	Blackboard->SetValueAsEnum(TEXT("State"), (uint8)InNewState);
 
 	if (InNewState == ECharacterState::Death)
+	{
 		OnUnPossess();
+		Destroy();
+	}
 }
 
 void AAIControllerBase::EnableDebugDrawing(bool InActive)
