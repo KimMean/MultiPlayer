@@ -69,6 +69,17 @@ public :
 
 	virtual void OnCharacterStateChanged(ECharacterState InPrevState, ECharacterState InNewState) override;
 
+
+public :
+	/* 
+	* ~Begin Character Base
+	*/
+	virtual void OnDeath() override;
+
+	/*
+	* ~End Character Base
+	*/
+
 protected:
 	/* AI Controller */
 	UPROPERTY(VisibleDefaultsOnly, Category = "Enemy|AI|Controller")

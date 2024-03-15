@@ -13,6 +13,8 @@ public class MultiPlayer : ModuleRules
 	    	"CoreUObject",
 	    	"Engine",
        	    "InputCore",
+			"OnlineSubsystem",
+			"OnlineSubsystemSteam",
 	    	"HeadMountedDisplay",
             "EnhancedInput",
 	    	"AIModule",

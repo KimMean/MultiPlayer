@@ -1,5 +1,6 @@
 #include "MultiPlayerGameMode.h"
 
+
 #include "GameSetting/Controllers/ControllerBase.h"
 #include "GameSetting/PlayerState/PlayerStateBase.h"
 #include "GameSetting/GameState/StateBase.h"
@@ -80,8 +81,8 @@ void AMultiPlayerGameMode::Logout(AController* Exiting)
 void AMultiPlayerGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-}
 
+}
 
 const TArray<float> AMultiPlayerGameMode::GetTacticalWeights_Of_EnemyType(EEnemyType InEnemyType)
 {

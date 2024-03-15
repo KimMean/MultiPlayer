@@ -3,6 +3,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Components/CapsuleComponent.h"
 
 #include "Actors/Weapons/WeaponBase.h"
 #include "Components/StateComponent.h"
@@ -130,8 +131,16 @@ void ACharacterBase::OnHit()
 void ACharacterBase::OnDeath()
 {
 	CharacterState->SetDeathMode();
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	Animation->StopAnimMontage();
 	Animation->PlayAnimMontage(ECharacterState::Death);
+
+	for (TTuple<EWeaponType, TObjectPtr<AWeaponBase>> weapon : Weapons)
+	{
+		weapon.Value->Destroy();
+	}
+	Weapons.Empty();
+	DebugLog::Print("CharacterBase:Death");
 }
 
 void ACharacterBase::SetWeaponCollisionEnable(EWeaponType InWeaponType, bool InEnable)

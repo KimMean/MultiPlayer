@@ -12,6 +12,7 @@ class UInputAction;
 class UGameUI;
 
 class AWeaponBase;
+class UInventoryComponent;
 
 struct FInputActionInstance;
 
@@ -89,6 +90,9 @@ protected :	//Widget
 		TSubclassOf<UGameUI> GameWidgetClass;
 	UPROPERTY(VisibleDefaultsOnly)
 		TObjectPtr<UGameUI> GameWidget;
+
+	UPROPERTY(VisibleDefaultsOnly)
+		TObjectPtr<UInventoryComponent> Inventory;
 
 
 protected:

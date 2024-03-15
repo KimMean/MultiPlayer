@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Interfaces/OnlineSessionInterface.h"
 #include "Characters/Enemies/EnemyBase.h"
 #include "Characters/CharacterInformation.h"
 #include "MultiPlayerGameMode.generated.h"
@@ -43,6 +44,7 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	
 public:
 	/*
 	* EnemyType에 따른 전술적 가중치를 반환합니다.
@@ -58,6 +60,7 @@ private:
 	void LoadTacticsWeightData();
 	void LoadEnemyStatusData();
 
+
 private:
 	/* DataTable을 참조합니다. */
 	TObjectPtr<UDataTable> DT_TacticsWeight;
@@ -67,6 +70,7 @@ private:
 	/* 적 정보 */
 	TObjectPtr<UDataTable> DT_EnemyStatus;
 	TMap<FString, FCharacterStatus*> EnemyStatus;
+
 };
 
 

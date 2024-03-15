@@ -9,6 +9,7 @@
 //#include "Blueprint/UserWidget.h"
 
 #include "Components/AnimationComponent.h"
+#include "Components/InventoryComponent.h"
 #include "UserInterface/Player/GameUI.h"
 
 #include "Utilities/DebugLog.h"
@@ -20,6 +21,7 @@ APlayerBase::APlayerBase()
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	//HPWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("HealthWidget"));
+	//Inventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 
 	ConstructorHelpers::FObjectFinder<USkeletalMesh> mesh(TEXT("SkeletalMesh'/Game/Characters/Mannequins/Meshes/SKM_Manny.SKM_Manny'"));
 
