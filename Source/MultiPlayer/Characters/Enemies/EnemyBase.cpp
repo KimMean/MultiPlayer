@@ -3,6 +3,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 
+#include "GameSetting/GameMode/MainGameMode.h"
 #include "GameSetting/GameInstance/GameInstanceBase.h"
 #include "GameSetting/Controllers/AIControllerBase.h"
 #include "Components/Enemy/EnemyAnimationComponent.h"
@@ -42,7 +43,7 @@ void AEnemyBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	AMultiPlayerGameMode* gameMode = Cast<AMultiPlayerGameMode>(GetWorld()->GetAuthGameMode());
+	AMainGameMode* gameMode = Cast<AMainGameMode>(GetWorld()->GetAuthGameMode());
 	if (gameMode->ContainsEnemyStatus(EnemyName))
 		CharacterStatus->SetCharacterStatus(*gameMode->GetEnemyStatus(EnemyName));
 	else

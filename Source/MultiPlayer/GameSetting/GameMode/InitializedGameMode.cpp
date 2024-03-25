@@ -1,5 +1,4 @@
-#include "MultiPlayerGameMode.h"
-
+#include "GameSetting/GameMode/InitializedGameMode.h"
 
 #include "GameSetting/Controllers/ControllerBase.h"
 #include "GameSetting/PlayerState/PlayerStateBase.h"
@@ -7,12 +6,11 @@
 #include "GameSetting/HUD/HUDBase.h"
 #include "GameSetting/GameSession/GameSessionBase.h"
 #include "GameSetting/Spectator/SpectatorBase.h"
-
 #include "Characters/PawnBase.h"
 
 #include "Utilities/DebugLog.h"
 
-AMultiPlayerGameMode::AMultiPlayerGameMode()
+AInitializedGameMode::AInitializedGameMode()
 {
 	DefaultPawnClass = APawnBase::StaticClass();
 	PlayerControllerClass = AControllerBase::StaticClass();
@@ -23,54 +21,46 @@ AMultiPlayerGameMode::AMultiPlayerGameMode()
 	SpectatorClass = ASpectatorBase::StaticClass();
 	ReplaySpectatorPlayerControllerClass = AControllerBase::StaticClass();
 	ServerStatReplicatorClass = AServerStatReplicator::StaticClass();
-
 }
 
-void AMultiPlayerGameMode::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
+void AInitializedGameMode::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
 {
-	DebugLog::Print("GameMode : InitGame");
 	Super::InitGame(MapName, Options, ErrorMessage);
+	DebugLog::Print("InitializedGameMode : InitGame");
 }
 
-void AMultiPlayerGameMode::InitGameState()
+void AInitializedGameMode::InitGameState()
 {
-	DebugLog::Print("GameMode : InitGameState");
 	Super::InitGameState();
+	DebugLog::Print("InitializedGameMode : InitGameState");
 }
 
-void AMultiPlayerGameMode::PreLogin(const FString& Options, const FString& Address, const FUniqueNetIdRepl& UniqueId, FString& ErrorMessage)
+void AInitializedGameMode::PreLogin(const FString& Options, const FString& Address, const FUniqueNetIdRepl& UniqueId, FString& ErrorMessage)
 {
-	DebugLog::Print("GameMode : PreLogin");
 	Super::PreLogin(Options, Address, UniqueId, ErrorMessage);
+	DebugLog::Print("InitializedGameMode : PreLogin");
 }
 
-APlayerController* AMultiPlayerGameMode::Login(UPlayer* NewPlayer, ENetRole InRemoteRole, const FString& Portal, const FString& Options, const FUniqueNetIdRepl& UniqueId, FString& ErrorMessage)
+APlayerController* AInitializedGameMode::Login(UPlayer* NewPlayer, ENetRole InRemoteRole, const FString& Portal, const FString& Options, const FUniqueNetIdRepl& UniqueId, FString& ErrorMessage)
 {
-	DebugLog::Print("GameMode : Login");
+	DebugLog::Print("InitializedGameMode : Login");
 	return Super::Login(NewPlayer, InRemoteRole, Portal, Options, UniqueId, ErrorMessage);
 }
 
-void AMultiPlayerGameMode::PostLogin(APlayerController* NewPlayer)
+void AInitializedGameMode::PostLogin(APlayerController* NewPlayer)
 {
-	DebugLog::Print("GameMode : PostLogin");
 	Super::PostLogin(NewPlayer);
+	DebugLog::Print("InitializedGameMode : PostLogin");
 }
 
-void AMultiPlayerGameMode::OnPostLogin(AController* NewPlayer)
+void AInitializedGameMode::OnPostLogin(AController* NewPlayer)
 {
-	DebugLog::Print("GameMode : OnPostLogin");
 	Super::OnPostLogin(NewPlayer);
+	DebugLog::Print("InitializedGameMode : OnPostLogin");
 }
 
-
-void AMultiPlayerGameMode::Logout(AController* Exiting)
+void AInitializedGameMode::Logout(AController* Exiting)
 {
-	DebugLog::Print("GameMode : Logout");
 	Super::Logout(Exiting);
-}
-
-void AMultiPlayerGameMode::BeginPlay()
-{
-	Super::BeginPlay();
-
+	DebugLog::Print("InitializedGameMode : Logout");
 }

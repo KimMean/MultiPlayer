@@ -6,6 +6,7 @@
 
 void UCharacterInfo::NativeConstruct()
 {
+	Super::NativeConstruct();
 	Btn_Select->OnClicked.AddDynamic(this, &UCharacterInfo::Btn_Select_OnClick);
 }
 

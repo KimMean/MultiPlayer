@@ -1,15 +1,8 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Characters/PlayerCharacter/PlayerBase.h"
 #include "Warrior.generated.h"
-
-/**
- * 
- */
-
 
 UCLASS()
 class MULTIPLAYER_API AWarrior : public APlayerBase

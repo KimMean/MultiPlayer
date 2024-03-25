@@ -5,16 +5,6 @@
 #include "Characters/CharacterInformation.h"
 #include "StatusComponent.generated.h"
 
-//FString CharacterName;
-//int32 Level;
-//float Experience;
-//int32 HealthPoint;
-//int32 MagicPoint;
-//int32 Strength = 10;
-//int32 Intelligence = 10;
-//int32 PhysicalDef = 10;
-//int32 MagicDef = 10;
-
 DECLARE_DELEGATE(FSingleDel_HealthPointChanged);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )

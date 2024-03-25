@@ -15,8 +15,10 @@ protected :
 	virtual void NativeConstruct() override;
 
 public :
-	void Btn_Create_OnClick();
+	UFUNCTION()
+		void Btn_Create_OnClick();
 
 private :
-	UPROPERTY(meta = (BindWidget)) UButton* Btn_Create;
+	UPROPERTY(meta = (BindWidget)) 
+		UButton* Btn_Create;
 };
