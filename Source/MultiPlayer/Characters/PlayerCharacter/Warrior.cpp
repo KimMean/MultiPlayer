@@ -8,8 +8,9 @@
 #include "Utilities/DebugLog.h"
 AWarrior::AWarrior()
 {
-	
 	ConstructorHelpers::FObjectFinder<USkeletalMesh> mesh(TEXT("/Script/Engine.SkeletalMesh'/Game/Characters/Pirate/Meshes/SKM_Pirate.SKM_Pirate'"));
+
+	PlayerClass = EPlayerClass::Warrior;
 
 	if (mesh.Succeeded() == true)
 	{

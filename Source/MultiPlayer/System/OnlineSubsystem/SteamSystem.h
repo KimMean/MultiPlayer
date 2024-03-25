@@ -14,6 +14,12 @@ class MULTIPLAYER_API USteamSystem : public UGameInstanceSubsystem
 public:
 	USteamSystem();
 
+	// ~ Begin USubsystem Interface
+	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
+	virtual void Deinitialize() override;
+	// ~ End USubsystem Interface
+
+
 public:
 	void CreateSession();
 	void JoinSession();

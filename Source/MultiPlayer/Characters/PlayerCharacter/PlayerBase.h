@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Characters/CharacterBase.h"
+#include "Definitions/PlayerDefinition.h"
 #include "PlayerBase.generated.h"
 
 class USpringArmComponent;
@@ -94,6 +95,8 @@ protected :	//Widget
 	UPROPERTY(VisibleDefaultsOnly)
 		TObjectPtr<UInventoryComponent> Inventory;
 
+	UPROPERTY(VisibleDefaultsOnly)
+		EPlayerClass PlayerClass = EPlayerClass::None;
 
 protected:
 	/* Player Can Move? */

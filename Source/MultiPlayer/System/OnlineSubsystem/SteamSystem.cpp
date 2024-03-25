@@ -9,19 +9,31 @@
 
 USteamSystem::USteamSystem()
 {
+	
+}
+
+void USteamSystem::Initialize(FSubsystemCollectionBase& Collection)
+{
+	Super::Initialize(Collection);
+
 	// OnlineSubsystem에 Access
-	IOnlineSubsystem* OnlineSubsystem = IOnlineSubsystem::Get();
-	if (OnlineSubsystem)
+	if (IOnlineSubsystem* OnlineSubsystem = IOnlineSubsystem::Get())
 	{
 		// 온라인 세션 받아오기
 		OnlineSessionInterface = OnlineSubsystem->GetSessionInterface();
-		CreateSessionCompleteDelegate.BindUObject(this, &USteamSystem::OnCreateSessionComplate);
-		FindSessionCompleteDelegate.BindUObject(this, &USteamSystem::OnFindSessionComplate);
-		JoinSessionCompleteDelegate.BindUObject(this, &USteamSystem::OnJoinSessionComplate);
-
+		if (OnlineSessionInterface.IsValid())
+		{
+			OnlineSessionInterface->OnCreateSessionCompleteDelegates.AddUObject(this, &USteamSystem::OnCreateSessionComplate);
+			OnlineSessionInterface->OnFindSessionsCompleteDelegates.AddUObject(this, &USteamSystem::OnFindSessionComplate);
+			OnlineSessionInterface->OnJoinSessionCompleteDelegates.AddUObject(this, &USteamSystem::OnJoinSessionComplate);
+		}
 		//DebugLog::Print("Create Online Sub System");
 		//DebugLog::Print(*OnlineSubsystem->GetSubsystemName().ToString());
 	}
+}
+
+void USteamSystem::Deinitialize()
+{
 }
 
 void USteamSystem::CreateSession()
@@ -51,7 +63,7 @@ void USteamSystem::CreateSession()
 	}
 
 	// 세션 생성 완료 후 호출될 delegate 리스트에 CreateSessionCompleteDelegate 추가
-	OnlineSessionInterface->AddOnCreateSessionCompleteDelegate_Handle(CreateSessionCompleteDelegate);
+	//OnlineSessionInterface->AddOnCreateSessionCompleteDelegate_Handle(CreateSessionCompleteDelegate);
 
 	// 세션 세팅하기
 	TSharedPtr<FOnlineSessionSettings> SessionSettings = MakeShareable(new FOnlineSessionSettings());
@@ -85,7 +97,7 @@ void USteamSystem::JoinSession()
 	}
 
 	// Find Session Complete Delegate 등록
-	OnlineSessionInterface->AddOnFindSessionsCompleteDelegate_Handle(FindSessionCompleteDelegate);
+	//OnlineSessionInterface->AddOnFindSessionsCompleteDelegate_Handle(FindSessionCompleteDelegate);
 
 	// Find Game Session
 	SessionSearch = MakeShareable(new FOnlineSessionSearch());
@@ -150,7 +162,7 @@ void USteamSystem::OnFindSessionComplate(bool bWasSuccessful)
 			}
 
 			// Join Session Complete Delegate 등록 
-			OnlineSessionInterface->AddOnJoinSessionCompleteDelegate_Handle(JoinSessionCompleteDelegate);
+			//OnlineSessionInterface->AddOnJoinSessionCompleteDelegate_Handle(JoinSessionCompleteDelegate);
 
 
 			const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();

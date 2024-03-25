@@ -6,7 +6,7 @@
 
 class UUserWidget;
 class UWidgetSwitcher;
-class UButton;
+class UUserWidget;
 
 
 UCLASS()
@@ -39,4 +39,10 @@ private :
 	UPROPERTY(meta = (BindWidget)) UUserWidget* WB_CreateCharacter_2;
 	UPROPERTY(meta = (BindWidget)) UUserWidget* WB_CreateCharacter_3;
 	UPROPERTY(meta = (BindWidget)) UUserWidget* WB_CreateCharacter_4;
+
+	UPROPERTY(meta = (BindWidget)) UUserWidget* WB_CharacterInfo_0;
+	UPROPERTY(meta = (BindWidget)) UUserWidget* WB_CharacterInfo_1;
+	UPROPERTY(meta = (BindWidget)) UUserWidget* WB_CharacterInfo_2;
+	UPROPERTY(meta = (BindWidget)) UUserWidget* WB_CharacterInfo_3;
+	UPROPERTY(meta = (BindWidget)) UUserWidget* WB_CharacterInfo_4;
 };
