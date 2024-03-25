@@ -1,6 +1,7 @@
 #include "LevelScripts/LevelScript_SelectCharacter.h"
 
 #include "UserInterface/SelectCharacter/SelectCharacter.h"
+#include "System/DataSystem/SaveSystem.h"
 
 ALevelScript_SelectCharacter::ALevelScript_SelectCharacter()
 {
@@ -16,4 +17,6 @@ void ALevelScript_SelectCharacter::BeginPlay()
 	
 	if (widget)
 		widget->AddToViewport();
+
+	
 }

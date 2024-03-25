@@ -1,6 +1,6 @@
 #include "AI/BTDecorator/BTDecorator_AttackTactics.h"
 
-#include "MultiPlayerGameMode.h"
+#include "GameSetting/GameMode/MainGameMode.h"
 #include "GameSetting/Controllers/AIControllerBase.h"
 #include "Characters/Enemies/EnemyBase.h"
 #include "Characters/CharacterBase.h"
@@ -34,7 +34,7 @@ bool UBTDecorator_AttackTactics::CalculateRawConditionValue(UBehaviorTreeCompone
 	}
 
 	// 가중치에 따라 공격, 방어, 회피를 정합니다.
-	TArray<float> weights = Cast<AMultiPlayerGameMode>(GetWorld()->GetAuthGameMode())->GetTacticalWeights_Of_EnemyType(enemy->GetEnemyTacticsType());
+	TArray<float> weights = Cast<AMainGameMode>(GetWorld()->GetAuthGameMode())->GetTacticalWeights_Of_EnemyType(enemy->GetEnemyTacticsType());
 	//TArray<float> weights = Cast<UGameInstanceBase>(GetWorld()->GetGameInstance())->GetTacticalWeights_Of_EnemyType(enemy->GetEnemyTacticsType());
 	int32 tacticsIndex = UsefulMath::WeightedRandomIndex(weights);
 
