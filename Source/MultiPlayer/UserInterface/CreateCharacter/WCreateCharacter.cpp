@@ -5,8 +5,10 @@
 #include "Components/TextBlock.h"
 #include "Components/EditableTextBox.h"
 
+#include "GameSetting/GameInstance/GameInstanceBase.h"
 #include "System/DataSystem/SaveSystem.h"
 #include "LevelScripts/LevelScript_CreateCharacter.h"
+#include "Characters/CharacterInformation.h"
 
 #include "Utilities/DebugLog.h"
 
@@ -22,6 +24,10 @@ void UWCreateCharacter::NativeConstruct()
 	Btn_Verify->OnClicked.AddDynamic(this, &UWCreateCharacter::OnClick_Btn_Verify);
 	Btn_Back->OnClicked.AddDynamic(this, &UWCreateCharacter::OnClick_Btn_Back);
 
+	//ConstructorHelpers::FObjectFinder<UDataTable> characterData(TEXT("/Script//Engine.DataTable'//Game/Blueprints/Characters/Datas/DT_CharacterInit.DT_CharacterInit'"));
+	//DT_CharacterBaseStatus = characterData.Object;
+
+	DT_CharacterBaseStatus = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), this, TEXT("/Script/Engine.DataTable'/Game/Blueprints/Characters/Datas/DT_CharacterInit.DT_CharacterInit'")));
 	//TB_Name->OnTextCommitted.AddDynamic(this, &UWCreateCharacter::OnTextCommitted_Nickname);
 }
 
@@ -59,17 +65,23 @@ void UWCreateCharacter::OnClick_Btn_Verify()
 	}
 	if (USaveSystem* SaveGameInstance = Cast<USaveSystem>(UGameplayStatics::CreateSaveGameObject(USaveSystem::StaticClass())))
 	{
+		TArray<FCharacterStatus*> datas;
+		DT_CharacterBaseStatus->GetAllRows<FCharacterStatus>("", datas);
+
 		// SaveGame 오브젝트에 데이터를 설정합니다.
-		SaveGameInstance->SlotName = TEXT("PlayerOne2");
-		SaveGameInstance->UserIndex = 0;
 		SaveGameInstance->PlayerClass = PlayerClass;
-		SaveGameInstance->PlayerStatus = FCharacterStatus();
+		SaveGameInstance->PlayerStatus = *datas[(int32)PlayerClass];
+		SaveGameInstance->PlayerStatus.CharacterName = nickname;
+
+		int32 slotIndex = Cast<UGameInstanceBase>(UGameplayStatics::GetGameInstance(GetWorld()))->GetPlayerSlotIndex();
+		FString slotName = "CharacterSlot" + FString::FromInt(slotIndex);
 
 		// 즉시 데이터를 저장합니다.
-		if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("PlayerOne"), 0))
+		if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, slotName, 0))
 		{
-			DebugLog::Print("Success Save");
 			// 저장에 성공했습니다.
+			DebugLog::Print("Success Save");
+			UGameplayStatics::OpenLevel(GetWorld(), FName("SelectCharacter"));
 		}
 	}
 }

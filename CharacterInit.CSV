@@ -1,0 +1,6 @@
+,CharacterName,Level,Experience,HealthPoint,MagicPoint,Strength,Agility,Intelligence,PhysicalDefense,MagicDefense
+0,None,0,0,0,0,0,0,0,0,0
+1,Warrior,1,0,10,3,8,2,1,4,2
+2,Archer,1,0,8,3,7,7,1,2,2
+3,Wizard,1,0,4,10,2,1,8,1,4
+4,Thief,1,0,6,5,3,10,3,2,1

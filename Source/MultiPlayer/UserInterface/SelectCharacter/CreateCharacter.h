@@ -18,6 +18,11 @@ public :
 	UFUNCTION()
 		void Btn_Create_OnClick();
 
+public :
+	/* Set in the Widget Blueprint */
+	UPROPERTY(EditAnywhere)
+		int32 PlayerSlotIndex;
+
 private :
 	UPROPERTY(meta = (BindWidget)) 
 		UButton* Btn_Create;

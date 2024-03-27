@@ -23,27 +23,31 @@ public:
 
 	/* 체력 */
 	UPROPERTY(VisibleAnywhere)
-	int32 HealthPoint = 100;
+	int32 HealthPoint = 1;
 
 	/* 마나 */
 	UPROPERTY(VisibleAnywhere)
-	int32 MagicPoint = 5;
+	int32 MagicPoint = 1;
 
 	/* 힘 */
 	UPROPERTY(VisibleAnywhere)
-	int32 Strength = 5;
+	int32 Strength = 1;
+
+	/* 민첩성 */
+	UPROPERTY(VisibleAnywhere)
+	int32 Agility = 1;
 
 	/* 지능 */
 	UPROPERTY(VisibleAnywhere)
-	int32 Intelligence = 5;
+	int32 Intelligence = 1;
 
 	/* 물리 방어력 */
 	UPROPERTY(VisibleAnywhere)
-	int32 PhysicalDefense = 5;
+	int32 PhysicalDefense = 1;
 
 	/* 마법 방어력 */
 	UPROPERTY(VisibleAnywhere)
-	int32 MagicDefense = 5;
+	int32 MagicDefense = 1;
 };
 
 class MULTIPLAYER_API CharacterInformation
