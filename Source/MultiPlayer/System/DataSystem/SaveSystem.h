@@ -15,12 +15,6 @@ public :
 	USaveSystem();
 
 	UPROPERTY(VisibleAnywhere)
-		FString SlotName;
-
-	UPROPERTY(VisibleAnywhere)
-		uint32 UserIndex;
-
-	UPROPERTY(VisibleAnywhere)
 		EPlayerClass PlayerClass;
 
 	UPROPERTY(VisibleAnywhere)

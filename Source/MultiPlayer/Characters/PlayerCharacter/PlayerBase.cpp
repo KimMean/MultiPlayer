@@ -6,6 +6,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputMappingContext.h"
 #include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
 //#include "Blueprint/UserWidget.h"
 
 #include "Components/AnimationComponent.h"
@@ -24,6 +25,8 @@ APlayerBase::APlayerBase()
 	//Inventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 
 	ConstructorHelpers::FObjectFinder<USkeletalMesh> mesh(TEXT("SkeletalMesh'/Game/Characters/Mannequins/Meshes/SKM_Manny.SKM_Manny'"));
+
+	GetCapsuleComponent()->SetCapsuleHalfHeight(90);
 
 	if (mesh.Succeeded() == true)
 	{

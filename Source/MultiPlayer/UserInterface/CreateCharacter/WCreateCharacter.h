@@ -43,4 +43,8 @@ protected :
 
 
 	EPlayerClass PlayerClass = EPlayerClass::None;
+
+protected :
+	/* DataTable을 참조합니다. */
+	TObjectPtr<UDataTable> DT_CharacterBaseStatus;
 };

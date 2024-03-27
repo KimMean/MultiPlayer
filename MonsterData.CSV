@@ -1,10 +1,10 @@
-,CharacterName,Level,Experience,HealthPoint,MagicPoint,Strength,Intelligence,PhysicalDefense,MagicDefense
-1,Black Spider,1,2,20,0,10,10,5,5
-2,Red Spider,2,4,40,0,20,10,5,5
-3,Magma Spider,3,6,60,0,30,10,5,5
-4,Frozen Spider,4,8,80,0,40,10,5,5
-5,Poison Spider,5,10,100,0,50,10,5,5
-6,Crystal Spider,6,12,120,0,60,10,5,5
-7,Lava Crystal Spider,7,14,140,0,70,10,5,5
-8,Emerald Spider,8,16,160,0,80,10,5,5
-9,Twin Spider,10,20,200,0,100,10,5,5
+,CharacterName,Level,Experience,HealthPoint,MagicPoint,Strength,Agility,Intelligence,PhysicalDefense,MagicDefense
+1,Black Spider,1,2,20,0,10,0,10,5,5
+2,Red Spider,2,4,40,0,20,0,10,5,5
+3,Magma Spider,3,6,60,0,30,0,10,5,5
+4,Frozen Spider,4,8,80,0,40,0,10,5,5
+5,Poison Spider,5,10,100,0,50,0,10,5,5
+6,Crystal Spider,6,12,120,0,60,1,10,5,5
+7,Lava Crystal Spider,7,14,140,0,70,1,10,5,5
+8,Emerald Spider,8,16,160,0,80,1,10,5,5
+9,Twin Spider,10,20,200,0,100,1,10,5,5

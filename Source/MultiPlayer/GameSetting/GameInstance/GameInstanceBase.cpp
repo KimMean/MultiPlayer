@@ -26,9 +26,17 @@ void UGameInstanceBase::Shutdown()
 	DebugLog::Print("GameInstanceBase Shutdown");
 }
 
-void UGameInstanceBase::CreateCharacter(APlayerBase& InPlayerCharacter)
+int32 UGameInstanceBase::GetPlayerSlotIndex()
 {
-	// »Ï
-	PlayerCharacters.Add(InPlayerCharacter);
+	return PlayerSlotIndex;
+}
+
+void UGameInstanceBase::SetPlayerSlotIndex(int32 InSlotIndex)
+{
+	PlayerSlotIndex = InSlotIndex;
+}
+
+void UGameInstanceBase::CreateCharacter(TObjectPtr<APlayerBase> InPlayerCharacter)
+{
 }
 

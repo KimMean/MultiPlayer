@@ -3,14 +3,17 @@
 #include "Engine/SkeletalMeshSocket.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/AnimationComponent.h"
+#include "Animation/AnimInstance.h"
 
 #include "Actors/Weapons/SwordBase.h"
 #include "Utilities/DebugLog.h"
 AWarrior::AWarrior()
 {
 	ConstructorHelpers::FObjectFinder<USkeletalMesh> mesh(TEXT("/Script/Engine.SkeletalMesh'/Game/Characters/Pirate/Meshes/SKM_Pirate.SKM_Pirate'"));
+	ConstructorHelpers::FClassFinder<UAnimInstance> ABP(TEXT("/Script/Engine.AnimBlueprint'/Game/Blueprints/Characters/Warrior/ABP_Warrior.ABP_Warrior_C'"));
 
 	PlayerClass = EPlayerClass::Warrior;
+	GetMesh()->SetAnimClass(ABP.Class);
 
 	if (mesh.Succeeded() == true)
 	{

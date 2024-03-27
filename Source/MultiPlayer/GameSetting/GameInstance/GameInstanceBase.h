@@ -20,8 +20,14 @@ public :
 	virtual void OnStart() override;
 	virtual void Shutdown() override;
 
-	void CreateCharacter(APlayerBase& InPlayerCharacter);
+
+	int32 GetPlayerSlotIndex();
+	void SetPlayerSlotIndex(int32 InSlotIndex);
+
+	void CreateCharacter(TObjectPtr<APlayerBase> InPlayerCharacter);
 
 protected :
-	TArray<TObjectPtr<APlayerBase>> PlayerCharacters;
+	int32 PlayerSlotIndex;
+
+	TObjectPtr<APlayerBase> PlayerCharacters;
 };
