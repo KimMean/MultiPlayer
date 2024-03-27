@@ -25,7 +25,7 @@ public :
 
 
 
-private :
+protected :
 	TArray<UWidgetSwitcher*> WS_Selects;
 
 	UPROPERTY(meta = (BindWidget)) UWidgetSwitcher* WS_Select_0;
