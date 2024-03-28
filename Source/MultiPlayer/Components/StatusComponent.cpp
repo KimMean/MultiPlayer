@@ -13,7 +13,7 @@ void UStatusComponent::BeginPlay()
 	CurrentHealthPoint = GetMaxHealthPoint();
 }
 
-const FCharacterStatus& UStatusComponent::GetCharacterStatus()
+FCharacterStatus& UStatusComponent::GetCharacterStatus()
 {
 	return CharacterStatus;
 }

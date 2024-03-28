@@ -18,6 +18,8 @@
 APlayerBase::APlayerBase()
 {
 	Tags.Add(TEXT("Player"));
+	AutoPossessAI = EAutoPossessAI::Disabled;
+	AIControllerClass = nullptr;
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
@@ -126,6 +128,18 @@ void APlayerBase::OnAttack_LMB(const FInputActionInstance& Instance)
 
 void APlayerBase::OnAttack_RMB(const FInputActionInstance& Instance)
 {
+}
+
+EPlayerClass APlayerBase::GetPlayerClass()
+{
+	return PlayerClass;
+}
+
+void APlayerBase::SetVisibility(bool InVisibility)
+{
+	Super::SetVisibility(InVisibility);
+	GetMesh()->SetVisibility(InVisibility);
+
 }
 
 

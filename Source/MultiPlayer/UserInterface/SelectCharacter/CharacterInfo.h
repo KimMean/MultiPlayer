@@ -25,6 +25,10 @@ public :
 
 
 private :
+	/* Set in the Widget Blueprint */
+	UPROPERTY(EditAnywhere)
+		int32 PlayerSlotIndex;
+
 	/* 캐릭터를 선택하는 버튼 */
 	UPROPERTY(meta = (BindWidget)) UButton* Btn_Select;
 	/* 캐릭터의 직업을 알려주는 아이콘 */

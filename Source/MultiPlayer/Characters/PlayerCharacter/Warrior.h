@@ -25,6 +25,9 @@ protected:
 	virtual void ExtraAttack() override;
 	// ~End Player Base Interface
 
+public :
+	virtual void SetVisibility(bool InVisibility) override;
+
 private :
 	void CreateWeapon();
 };

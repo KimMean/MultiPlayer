@@ -47,6 +47,11 @@ protected :
 	/* Right Mouse Button On Click */
 	void OnAttack_RMB(const FInputActionInstance& Instance);
 
+public :
+	EPlayerClass GetPlayerClass();
+
+public :
+	virtual void SetVisibility(bool InVisibility) override;
 
 public:
 	/* Set whether combos are possible. */
