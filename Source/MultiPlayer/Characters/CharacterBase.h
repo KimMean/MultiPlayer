@@ -32,11 +32,6 @@ protected:
 	virtual void Tick(float DeltaSeconds) override;
 
 
-/*
-* Default Properties
-* Get {}
-* Set {}
-*/
 public:
 	/* Character State Component */
 	const TObjectPtr<UStateComponent> GetCharacterStateComponent() const;
@@ -73,6 +68,11 @@ public :
 	/* Called when hit */
 	virtual void OnHit();
 	virtual void OnDeath();
+
+public :
+	virtual void SetCapsuleComponentCollisionEnabled(ECollisionEnabled::Type InEnabled);
+	virtual void SetVisibility(bool InVisibility);
+
 
 public:
 	// Weapons
