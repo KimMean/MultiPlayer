@@ -68,6 +68,11 @@ void AWarrior::ExtraAttack()
 
 }
 
+void AWarrior::SetVisibility(bool InVisibility)
+{
+	Super::SetVisibility(InVisibility);
+}
+
 void AWarrior::CreateWeapon()
 {
 	TObjectPtr<UClass> sword = LoadClass<ASwordBase>(NULL, TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Weapons/Swords/BP_SwordBase.BP_SwordBase_C'"));

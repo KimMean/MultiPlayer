@@ -131,7 +131,7 @@ void ACharacterBase::OnHit()
 void ACharacterBase::OnDeath()
 {
 	CharacterState->SetDeathMode();
-	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	SetCapsuleComponentCollisionEnabled(ECollisionEnabled::NoCollision);
 	Animation->StopAnimMontage();
 	Animation->PlayAnimMontage(ECharacterState::Death);
 
@@ -141,6 +141,15 @@ void ACharacterBase::OnDeath()
 	}
 	Weapons.Empty();
 	DebugLog::Print("CharacterBase:Death");
+}
+
+void ACharacterBase::SetCapsuleComponentCollisionEnabled(ECollisionEnabled::Type InEnabled)
+{
+	GetCapsuleComponent()->SetCollisionEnabled(InEnabled);
+}
+
+void ACharacterBase::SetVisibility(bool InVisibility)
+{
 }
 
 void ACharacterBase::SetWeaponCollisionEnable(EWeaponType InWeaponType, bool InEnable)

@@ -17,6 +17,4 @@ public :
 protected :
 	virtual void BeginPlay() override;
 
-private:
-	TSubclassOf<USelectCharacter> MainWidgetClass;
 };

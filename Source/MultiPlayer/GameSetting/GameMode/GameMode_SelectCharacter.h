@@ -7,6 +7,7 @@
 #include "GameMode_SelectCharacter.generated.h"
 
 class APlayerBase;
+class USelectCharacter;
 
 USTRUCT()
 struct FPlayerData
@@ -34,10 +35,13 @@ public :
 	// ~ End AGameModeBase Interface
 
 protected :
-	void BeginPlay();
+	virtual void BeginPlay() override;
 
 public :
 	void Travel_CreateCharacter();
+	bool ContainsPlayerData(int32 InIndex);
+	FCharacterStatus GetPlayerStatus(int32 InIndex);
+	void SelectCharacter(int32 InIndex);
 
 protected :
 	void LoadCharacterData();
@@ -47,7 +51,13 @@ protected :
 protected :
 	TMap<int32, TObjectPtr<APlayerBase>> Characters;
 
+private:
+	TSubclassOf<USelectCharacter> MainWidgetClass;
+	TObjectPtr<USelectCharacter> Widget;
+
 private :
+	int32 CurrentSlotIndex;
+
 	const int32 MaxSlotCount = 5;
 	const FString SlotName = "CharacterSlot";
 };

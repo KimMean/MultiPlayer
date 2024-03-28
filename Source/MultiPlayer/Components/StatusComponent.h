@@ -19,7 +19,7 @@ protected:
 	virtual void BeginPlay() override;
 
 public :
-	const FCharacterStatus& GetCharacterStatus();
+	FCharacterStatus& GetCharacterStatus();
 	void SetCharacterStatus(FCharacterStatus InCharacterStatus);
 
 public:
